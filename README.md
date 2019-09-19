@@ -5,10 +5,10 @@ E-Com Plus app to integrate PayPal EC &amp; Plus
 
 ### TODO
 
-*  Usar esse [boilerplate](https://github.com/ecomclub/express-app-boilerplate).
-*  Criar dois endpoints que receberam POST para os seguintes recursos; list_payment e create_transaction. Respeitando os [schemas](https://github.com/ecomclub/modules-api/tree/master/docs).
-* O aplicativo precisa se autenticar com o paypal via [oauth](https://developer.paypal.com/docs/api/overview/).
-* O aplicativo precisa receber notificações do paypal sempre que houver alteração de status de alguma transação e reproduzir na [E-Com Plus Store API](https://developers.e-com.plus/docs/api/#/store/orders/).
+* Use this[boilerplate](https://github.com/ecomclub/express-app-boilerplate).
+* Create two enpopoins to recieve POST for `list_payment` and `create_transaction` following these [schemas](https://github.com/ecomclub/modules-api/tree/master/docs).
+* The app must authenticate it sefl eith paypal through [oauth](https://developer.paypal.com/docs/api/overview/).
+* The app must recieve Paypal's notifications always that is a satatus change in a transaction, and reproduce it on [E-Com Plus Store API](https://developers.e-com.plus/docs/api/#/store/orders/).
 
 
 ### HOW TODO
