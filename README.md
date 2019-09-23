@@ -67,7 +67,7 @@ The endpoint has to be enabled to recieve a post. Resquest body must follow the 
 | module | Name of launched module |
 | params | Object with app's information used to list payment options. The object must follow this JSON [Schema] (https://apx-mods.e-com.plus/api/v1/list_payments/schema.json?store_id=100).
 | application | Object with requesting app information.|
-Resource's response must follow this JSON [Schema] (https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100). Response's displayed options must be setted by a user. Use application's hidden_data property to save this and other settings.
+Resource's response must follow this JSON [Schema](https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100). Response's displayed options must be setted by a user. Use application's hidden_data property to save this and other settings.
 
 Observation:
 - Resource must answer even if there are no users's configuration in app's hidden_data. For this, create a plug and play default configuration.
@@ -124,7 +124,7 @@ The app will be replicated in other servers, so backgroud processes should be ca
 
 ### Logs
 
-Use console-files lib, which is installed together with boilerplate to save app's error logs
+Use [console-files](https://github.com/leomp12/console-files) lib, which is installed together with boilerplate to save app's error logs
 
 ### Patterns
 
@@ -135,6 +135,7 @@ Use console-files lib, which is installed together with boilerplate to save app'
 - Respect [schemas](https://github.com/ecomclub/modules-api/tree/master/docs)! formats, or your answer will be invalid for the module.
 
 #### References
+
 E-Com Plus Store API - [Orders](https://developers.e-com.plus/docs/api/#/store/orders/)
 
 E-Com Plus Store API - [Applications](https://developers.e-com.plus/docs/api/#/store/applications/)
