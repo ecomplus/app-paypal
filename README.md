@@ -67,6 +67,7 @@ The endpoint has to be enabled to recieve a post. Resquest body must follow the 
 | module | Name of launched module |
 | params | Object with app's information used to list payment options. The object must follow this JSON [Schema] (https://apx-mods.e-com.plus/api/v1/list_payments/schema.json?store_id=100).
 | application | Object with requesting app information.|
+
 Resource's response must follow this JSON [Schema](https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100). Response's displayed options must be setted by a user. Use application's hidden_data property to save this and other settings.
 
 Observation:
