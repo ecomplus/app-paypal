@@ -1,16 +1,27 @@
 {
-  "app_id": 9000,
+  "app_id": 9004,
   "state": "active",
-  "title": "My Awesome E-Com Plus App",
-  "slug": "my-app",
+  "title": "Paypal",
+  "slug": "paypal",
   "version": "0.0.1",
   "type": "external",
   "authentication": true,
-  "auth_callback_uri": "https://my-app/ecom/auth-callback",
+  "auth_callback_uri": "https://paypal.ecomplus.biz/ecom/auth-callback",
   "auth_scope": {
-    "procedures": [
+    "orders": [
+      "GET"
+    ],
+    "orders/payments_history": [
       "POST"
     ]
+  },
+  "modules": {
+    "list_payments": {
+      "endpoint": "https://paypal.ecomplus.biz/ecom/modules/list-payments"
+    },
+    "create_transaction": {
+      "endpoint": "https://paypal.ecomplus.biz/ecom/modules/create-transaction"
+    }
   },
   "admin_settings": {
   }
