@@ -5,6 +5,7 @@
   "description": "E-Com Plus app to integrate PayPal EC & Plus",
   "main": "main.js",
   "dependencies": {
+    "@paypal/checkout-server-sdk": "1.x",
     "console-files": "2.x",
     "ecomplus-app-sdk": "1.x",
     "express": "4.x"
@@ -13,7 +14,7 @@
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "husky": "^3.0.8",
-    "standard": "*",
+    "standard": "^14.3.1",
     "standard-version": "^7.0.0"
   },
   "husky": {
