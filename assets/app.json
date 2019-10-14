@@ -24,5 +24,23 @@
     }
   },
   "admin_settings": {
+    "paypal_client_id": {
+      "schema": {
+        "type": "string",
+        "maxLength": 255,
+        "title": "PayPal App Client ID",
+        "description": "Client ID disponível em https://developer.paypal.com/developer/applications/"
+      },
+      "hide": true
+    },
+    "paypal_secret": {
+      "schema": {
+        "type": "string",
+        "maxLength": 255,
+        "title": "PayPal App Secret",
+        "description": "Secret disponível em https://developer.paypal.com/developer/applications/"
+      },
+      "hide": true
+    }
   }
 }
