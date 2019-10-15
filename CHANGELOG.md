@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/ecomclub/app-paypal/compare/v0.1.0...v0.1.1) (2019-10-15)
+
+
+### Bug Fixes
+
+* **src:** setup additional routes files ([1898196](https://github.com/ecomclub/app-paypal/commit/1898196be6f2474acf6641a5da72bfc5307fc2d0))
+* **web:** update app routes ([3c155ad](https://github.com/ecomclub/app-paypal/commit/3c155ada44c4d11d626daae443180482f46105fb))
+
 ## [0.1.0](https://github.com/ecomclub/app-paypal/compare/v0.0.3...v0.1.0) (2019-10-15)
 
 ### [0.0.3](https://github.com/ecomclub/app-paypal/compare/v0.0.2...v0.0.3) (2019-10-15)
