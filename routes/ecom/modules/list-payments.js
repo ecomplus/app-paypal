@@ -25,6 +25,10 @@ module.exports = appSdk => {
       // set PT-BR as default
       params.lang = 'pt_br'
     }
+    let totalValue
+    if (params.amount) {
+      totalValue = params.amount.total
+    }
 
     // start mounting response body
     // https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100
@@ -70,14 +74,13 @@ module.exports = appSdk => {
       // default configured installments option
       response.installments_option = installmentsOption
 
-      if (params.amount) {
-        const { total } = params.amount
+      if (totalValue) {
         // map to payment gateway installments
         paymentGateway.installment_options = []
         const minInstallment = installmentsOption.min_installment || 5
         for (let number = 2; number <= installmentsOption.max_number.length; number++) {
           // check installment value and configured minimum
-          const value = total / number
+          const value = totalValue / number
           if (value >= minInstallment) {
             paymentGateway.installment_options.push({
               number,
@@ -94,7 +97,21 @@ module.exports = appSdk => {
 
     // PayPal Checkout JS client
     // https://developer.paypal.com/docs/checkout/integrate/
-    paymentGateway.js_client.script_uri = `https://www.paypal.com/sdk/js?client-id=${paypalClientId}`
+    paymentGateway.js_client.script_uri = 'https://www.paypal.com/sdk/js' +
+      `?client-id=${paypalClientId}&currency=${params.currency_id}`
+
+    // add order amount on JS expression
+    const paypalOrder = {}
+    if (totalValue) {
+      paypalOrder.purchase_units = [{
+        amount: {
+          value: totalValue.toString()
+        }
+      }]
+    }
+    const paypalOrderJson = JSON.stringify(paypalOrder)
+    paymentGateway.js_client.onload_expression = `window._paypalOrderObj=${paypalOrderJson};` +
+      paymentGateway.js_client.onload_expression
 
     res.send(response)
   }
