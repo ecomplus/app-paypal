@@ -1,9 +1,15 @@
 {
   "name": "@ecomplus/app-paypal",
   "private": true,
-  "version": "0.0.1",
+  "author": "E-Com Club <ti@e-com.club>",
+  "license": "MIT",
+  "version": "0.0.2",
   "description": "E-Com Plus app to integrate PayPal EC & Plus",
   "main": "main.js",
+  "scripts": {
+    "test": "node ./main.js",
+    "release": "standard-version"
+  },
   "dependencies": {
     "@paypal/checkout-server-sdk": "1.x",
     "console-files": "2.x",
