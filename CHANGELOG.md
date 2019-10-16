@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/ecomclub/app-paypal/compare/v0.1.1...v0.1.2) (2019-10-16)
+
+
+### Features
+
+* **onload:** return some PayPal order data ([15d329e](https://github.com/ecomclub/app-paypal/commit/15d329e23a37966a20fcede3f58d3f8ce5d68427))
+
+
+### Bug Fixes
+
+* **list-payments:** disable cards (paypal components bug) ([4e9c97e](https://github.com/ecomclub/app-paypal/commit/4e9c97efa50fcf110a0c06b7bc8bcf6da6ff834a))
+
 ### [0.1.1](https://github.com/ecomclub/app-paypal/compare/v0.1.0...v0.1.1) (2019-10-15)
 
 
