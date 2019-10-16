@@ -97,11 +97,15 @@ module.exports = appSdk => {
 
     // PayPal Checkout JS client
     // https://developer.paypal.com/docs/checkout/integrate/
-    paymentGateway.js_client.script_uri = 'https://www.paypal.com/sdk/js' +
+    let paypalScript = 'https://www.paypal.com/sdk/js' +
       `?client-id=${paypalClientId}&currency=${params.currency_id}`
     if (config.paypal_debug) {
-      paymentGateway.js_client.script_uri += '&debug=true'
+      paypalScript += '&debug=true'
     }
+    if (params.currency_id === 'BRL' && params.lang === 'pt_br') {
+      paypalScript += '&buyer-country=BR&locale=pt_BR'
+    }
+    paymentGateway.js_client.script_uri = paypalScript
 
     // add order amount on JS expression
     const paypalOrder = {}
