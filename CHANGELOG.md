@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/ecomclub/app-paypal/compare/v0.1.2...v0.1.3) (2019-10-16)
+
+
+### Bug Fixes
+
+* **list-payments:** can't disable card (it's disable on popup also) ([ba0395b](https://github.com/ecomclub/app-paypal/commit/ba0395bc057c851eebebe25d2d5a4ebf61e8beaf))
+
 ### [0.1.2](https://github.com/ecomclub/app-paypal/compare/v0.1.1...v0.1.2) (2019-10-16)
 
 
