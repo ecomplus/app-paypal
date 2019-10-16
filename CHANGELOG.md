@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/ecomclub/app-paypal/compare/v0.1.5...v0.1.6) (2019-10-16)
+
+
+### Bug Fixes
+
+* **list-payments:** can't set country with paypal sdk on production ([78a2490](https://github.com/ecomclub/app-paypal/commit/78a2490c793e25e7821100d6f85f74a4552c68c0))
+
 ### [0.1.5](https://github.com/ecomclub/app-paypal/compare/v0.1.4...v0.1.5) (2019-10-16)
 
 
