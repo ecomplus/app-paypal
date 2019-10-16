@@ -145,6 +145,27 @@
         "description": "Secret disponível em https://developer.paypal.com/developer/applications/"
       },
       "hide": true
+    },
+    "paypal_debug": {
+      "schema": {
+        "type": "boolean",
+        "title": "Debug PayPal SDK",
+        "description": "PayPal Checkout SDK dev mode"
+      }
+    },
+    "disable_express_checkout": {
+      "schema": {
+        "type": "boolean",
+        "title": "Desabilitar PayPal Express Checkout",
+        "description": "Remover opção \"Pagar com PayPal\""
+      }
+    },
+    "enable_paypal_plus": {
+      "schema": {
+        "type": "boolean",
+        "title": "Habilitar PayPal Plus",
+        "description": "Checkout transaparente via PayPal (necessário aprovação da conta)"
+      }
     }
   }
 }
