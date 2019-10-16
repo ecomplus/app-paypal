@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/ecomclub/app-paypal/compare/v0.1.4...v0.1.5) (2019-10-16)
+
+
+### Bug Fixes
+
+* **list-payments:** preseting paypal script locale and country ([5312bfa](https://github.com/ecomclub/app-paypal/commit/5312bfa6e78e6b27aaf6d27e43d0ec3ede1c60f9))
+
 ### [0.1.4](https://github.com/ecomclub/app-paypal/compare/v0.1.3...v0.1.4) (2019-10-16)
 
 
