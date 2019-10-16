@@ -98,7 +98,7 @@ module.exports = appSdk => {
     // PayPal Checkout JS client
     // https://developer.paypal.com/docs/checkout/integrate/
     paymentGateway.js_client.script_uri = 'https://www.paypal.com/sdk/js' +
-      `?client-id=${paypalClientId}&currency=${params.currency_id}&disable-funding=card`
+      `?client-id=${paypalClientId}&currency=${params.currency_id}`
 
     // add order amount on JS expression
     const paypalOrder = {}
