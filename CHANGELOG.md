@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/ecomclub/app-paypal/compare/v0.1.3...v0.1.4) (2019-10-16)
+
+
+### Features
+
+* **list-payments:** handle config debug option ([65c436e](https://github.com/ecomclub/app-paypal/commit/65c436e366fd60d6ece8e9292e8b0fdd2749be16))
+
 ### [0.1.3](https://github.com/ecomclub/app-paypal/compare/v0.1.2...v0.1.3) (2019-10-16)
 
 
