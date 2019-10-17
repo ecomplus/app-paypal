@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/ecomclub/app-paypal/compare/v0.1.12...v0.1.13) (2019-10-17)
+
+
+### Features
+
+* **list-payments:** handle enable_standard_card_fiels config option ([f807734](https://github.com/ecomclub/app-paypal/commit/f807734cc14a6a8b49e8d72870749389406e59a8))
+
+
+### Bug Fixes
+
+* **onload:** handle std card fields, get vars from window ([d837ff9](https://github.com/ecomclub/app-paypal/commit/d837ff96f76a8fd731c84f643a9b6398673e225b))
+
 ### [0.1.12](https://github.com/ecomclub/app-paypal/compare/v0.1.11...v0.1.12) (2019-10-17)
 
 ### [0.1.11](https://github.com/ecomclub/app-paypal/compare/v0.1.10...v0.1.11) (2019-10-17)
