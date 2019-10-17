@@ -160,11 +160,11 @@
         "description": "PayPal REST API sandbox env"
       }
     },
-    "disable_express_checkout": {
+    "enable_standard_card_fiels": {
       "schema": {
         "type": "boolean",
-        "title": "Desabilitar PayPal Express Checkout",
-        "description": "Remover opção \"Pagar com PayPal\""
+        "title": "Habilitar Standard Card Fields",
+        "description": "https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/"
       }
     }
   }
