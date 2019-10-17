@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/ecomclub/app-paypal/compare/v0.1.6...v0.1.7) (2019-10-17)
+
+
+### Features
+
+* **payment-gateway:** add base gateway object for paypal plus ([ef1b10f](https://github.com/ecomclub/app-paypal/commit/ef1b10fb70689cf23aa655d477a5cf3129c139ad))
+* **paypal-api:** init sdk and create paypal web profile ([0c184d3](https://github.com/ecomclub/app-paypal/commit/0c184d31513de4db35e00d144b8335329bc9a96f))
+* **procedures:** add procedure for app hidden data changes ([d393e5e](https://github.com/ecomclub/app-paypal/commit/d393e5ef40782f13c17b63d3bb747cc8b570c17c))
+
 ### [0.1.6](https://github.com/ecomclub/app-paypal/compare/v0.1.5...v0.1.6) (2019-10-16)
 
 

@@ -3,7 +3,7 @@
   "private": true,
   "author": "E-Com Club <ti@e-com.club>",
   "license": "MIT",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "E-Com Plus app to integrate PayPal EC & Plus",
   "main": "main.js",
   "scripts": {
