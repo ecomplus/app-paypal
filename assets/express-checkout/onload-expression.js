@@ -1,7 +1,6 @@
 ;(function () {
-  /* global paypal, _paypalOrderObj, _amount */
   var _newPaypalOrderObj = function () {
-    if (_amount && _amount.total) {
+    if (window._amount && window._amount.total) {
       return {
         intent: 'CAPTURE',
         payer: {
@@ -48,19 +47,19 @@
       return {
         purchase_units: [{
           amount: {
-            value: _amount.total.toString()
+            value: window._amount.total.toString()
           }
         }]
       }
       */
     }
-    return _paypalOrderObj
+    return window._paypalOrderObj
   }
 
   window._paypalApprove = new Promise(function (resolve) {
     // https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons
-    paypal.Buttons({
-      enableStandardCardFields: false,
+    window.paypal.Buttons({
+      enableStandardCardFields: Boolean(window._paypalStCardFields),
 
       createOrder: function (data, actions) {
         return actions.order.create(_newPaypalOrderObj())
