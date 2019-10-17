@@ -2,7 +2,7 @@
 
 // read configured E-Com Plus app data
 const getConfig = require(process.cwd() + '/lib/store-api/get-config')
-// create PayPal experience profile to support PayPal Plus
+// create PayPal experience profile
 const createPaypalProfile = require(process.cwd() + '/lib/paypal-api/create-profile')
 // register PayPal notification webhook
 const createPaypalWebhook = require(process.cwd() + '/lib/paypal-api/create-webhook')
