@@ -4,6 +4,8 @@
 const getConfig = require(process.cwd() + '/lib/store-api/get-config')
 // create PayPal experience profile to support PayPal Plus
 const createPaypalProfile = require(process.cwd() + '/lib/paypal-api/create-profile')
+// register PayPal notification webhook
+const createPaypalWebhook = require(process.cwd() + '/lib/paypal-api/create-webhook')
 
 const SKIP_TRIGGER_NAME = 'SkipTrigger'
 const ECHO_SUCCESS = 'SUCCESS'
@@ -60,8 +62,12 @@ module.exports = appSdk => {
           paypalEnv,
           store
         }) => {
-          // setup PayPal web profile once per store
-          return createPaypalProfile(
+          // setup PayPal web profile and webhook once per store
+          return createPaypalWebhook(
+            paypalEnv,
+            paypalClientId,
+            paypalSecret
+          ).then(() => createPaypalProfile(
             paypalEnv,
             paypalClientId,
             paypalSecret,
@@ -70,7 +76,7 @@ module.exports = appSdk => {
             store.domain && `https://${store.domain}/app/#/confirmation/`,
             store.languages && store.languages.length &&
               store.languages[0].replace(/^[a-z]{2}_?/, '').toUpperCase()
-          )
+          ))
         })
 
         .then(() => {
