@@ -1,5 +1,10 @@
 'use strict'
 
+// preset default PayPal REST API env
+if (!process.env.DEFAULT_PAYPAL_ENV) {
+  process.env.DEFAULT_PAYPAL_ENV = 'sandbox'
+}
+
 // debug errors in files
 // require logger module first of any code
 require('console-files')
