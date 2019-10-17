@@ -60,7 +60,7 @@
   window._paypalApprove = new Promise(function (resolve) {
     // https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons
     paypal.Buttons({
-      enableStandardCardFields: true,
+      enableStandardCardFields: false,
 
       createOrder: function (data, actions) {
         return actions.order.create(_newPaypalOrderObj())
@@ -92,6 +92,6 @@
           resolve(transaction)
         })
       }
-    }).render('body')
+    }).render('#paypal-button-container')
   })
 }())
