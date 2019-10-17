@@ -153,6 +153,13 @@
         "description": "PayPal Checkout SDK dev mode"
       }
     },
+    "paypal_sandbox": {
+      "schema": {
+        "type": "boolean",
+        "title": "PayPal Sandbox",
+        "description": "PayPal REST API sandbox env"
+      }
+    },
     "disable_express_checkout": {
       "schema": {
         "type": "boolean",
