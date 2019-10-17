@@ -97,8 +97,11 @@ module.exports = appSdk => {
 
     // PayPal Checkout JS client
     // https://developer.paypal.com/docs/checkout/integrate/
+    const locales = params.lang.split('_')
     let paypalScript = 'https://www.paypal.com/sdk/js' +
-      `?client-id=${paypalClientId}&currency=${params.currency_id}`
+      `?client-id=${paypalClientId}` +
+      `&currency=${params.currency_id}` +
+      `&locale=${locales[0]}_${(locales[1] || locales[0]).toUpperCase()}`
     if (config.paypal_debug) {
       paypalScript += '&debug=true'
     }
