@@ -96,6 +96,7 @@ module.exports = appSdk => {
     }
 
     // PayPal Checkout JS client
+    const jsClient = paymentGateway.js_client
     // https://developer.paypal.com/docs/checkout/integrate/
     const locales = params.lang.split('_')
     let paypalScript = 'https://www.paypal.com/sdk/js' +
@@ -105,7 +106,7 @@ module.exports = appSdk => {
     if (config.paypal_debug) {
       paypalScript += '&debug=true'
     }
-    paymentGateway.js_client.script_uri = paypalScript
+    jsClient.script_uri = paypalScript
 
     // add order amount on JS expression
     const paypalOrder = {}
@@ -116,9 +117,13 @@ module.exports = appSdk => {
         }
       }]
     }
-    const paypalOrderJson = JSON.stringify(paypalOrder)
-    paymentGateway.js_client.onload_expression = `window._paypalOrderObj=${paypalOrderJson};` +
-      paymentGateway.js_client.onload_expression
+    let onloadExpression = `window._paypalOrderObj=${JSON.stringify(paypalOrder)};`
+    if (config.enable_standard_card_fiels) {
+      // https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/
+      // standard card fields is disabled by default due to bugs (BR only ?)
+      onloadExpression += 'window._paypalStCardFields=true;'
+    }
+    jsClient.onload_expression = onloadExpression + jsClient.onload_expression
 
     res.send(response)
   }
