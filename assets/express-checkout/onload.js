@@ -1,10 +1,23 @@
 ;(function () {
-  // https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons
-  /* global paypal, _paypalOrderObj */
+  /* global paypal, _paypalOrderObj, _amount */
+  var _newPaypalOrderObj = function () {
+    if (_amount && _amount.total) {
+      return {
+        purchase_units: [{
+          amount: {
+            value: _amount.total.toString()
+          }
+        }]
+      }
+    }
+    return _paypalOrderObj
+  }
+
   window._paypalApprove = new Promise(function (resolve) {
+    // https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons
     paypal.Buttons({
       createOrder: function (data, actions) {
-        return actions.order.create(_paypalOrderObj)
+        return actions.order.create(_newPaypalOrderObj())
       },
 
       onApprove: function (data, actions) {
