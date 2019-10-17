@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/ecomclub/app-paypal/compare/v0.1.7...v0.1.8) (2019-10-17)
+
+
+### Features
+
+* **create-profile:** handle ecom webhooks to create paypal web profile ([533d8e8](https://github.com/ecomclub/app-paypal/commit/533d8e82f7997b60033b083b2d57d453a9fd7198))
+* **ecom-webhook:** also setup paypal webhook ([67c374a](https://github.com/ecomclub/app-paypal/commit/67c374a47dc79ab8992ba51b49e9228ddde2baf1))
+* **paypal-webhook:** add handlers to create paypal webhook ([1ce0ded](https://github.com/ecomclub/app-paypal/commit/1ce0ded4c036dd50039b05cc1887bd7fd4788c13))
+
+
+### Bug Fixes
+
+* **onload:** try to get amount from global _amount ([449676c](https://github.com/ecomclub/app-paypal/commit/449676cafeada194e8df2ea603b7a94337525f35))
+* **procedures:** remove field filter for trigger ([62f89cf](https://github.com/ecomclub/app-paypal/commit/62f89cf620d0a77c61dcfed3c4042929bac6b83d))
+* **routes:** move ecom/modules/webhook to ecom/webhook ([2c59744](https://github.com/ecomclub/app-paypal/commit/2c5974446f16163a6a951a8387ca18ff27629d06))
+
 ### [0.1.7](https://github.com/ecomclub/app-paypal/compare/v0.1.6...v0.1.7) (2019-10-17)
 
 
