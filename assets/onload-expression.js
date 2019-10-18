@@ -60,7 +60,7 @@
   window._paypalApprove = new Promise(function (resolve) {
     // https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons
     window.paypal.Buttons({
-      enableStandardCardFields: Boolean(window._paypalStCardFields),
+      enableStandardCardFields: false,
 
       createOrder: function (data, actions) {
         return actions.order.create(window._newPaypalOrderObj())
