@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/ecomclub/app-paypal/compare/v0.1.14...v0.1.15) (2019-10-18)
+
+
+### Bug Fixes
+
+* **onload:** set _newPaypalOrderObj on window ([93fdbf4](https://github.com/ecomclub/app-paypal/commit/93fdbf472700adad02f1d0e9b66bc40895cf6b9d))
+
 ### [0.1.14](https://github.com/ecomclub/app-paypal/compare/v0.1.13...v0.1.14) (2019-10-18)
 
 ### [0.1.13](https://github.com/ecomclub/app-paypal/compare/v0.1.12...v0.1.13) (2019-10-17)
