@@ -1,5 +1,5 @@
 ;(function () {
-  var _newPaypalOrderObj = function () {
+  window._newPaypalOrderObj = function () {
     if (window._amount && window._amount.total) {
       /*
       TODO: pass payer info on order create
@@ -63,7 +63,7 @@
       enableStandardCardFields: Boolean(window._paypalStCardFields),
 
       createOrder: function (data, actions) {
-        return actions.order.create(_newPaypalOrderObj())
+        return actions.order.create(window._newPaypalOrderObj())
       },
 
       onApprove: function (data, actions) {
