@@ -1,8 +1,7 @@
 ;(function () {
   window._newPaypalOrderObj = function () {
     if (window._amount && window._amount.total) {
-      /*
-      TODO: pass payer info on order create
+      // TODO: pass payer info on order create
       return {
         intent: 'CAPTURE',
         payer: {
@@ -45,7 +44,7 @@
           }
         ]
       }
-      */
+      /*
       return {
         purchase_units: [{
           amount: {
@@ -53,6 +52,7 @@
           }
         }]
       }
+      */
     }
     return window._paypalOrderObj
   }
