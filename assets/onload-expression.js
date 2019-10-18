@@ -93,7 +93,8 @@
           var i
           var transaction = {
             intermediator: {
-              transaction_id: details.id
+              transaction_id: details.id,
+              transaction_code: details.id
             }
           }
           if (Array.isArray(details.links)) {
