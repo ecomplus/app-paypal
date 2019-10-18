@@ -1,7 +1,8 @@
 ;(function () {
   window._newPaypalOrderObj = function () {
     if (window._amount && window._amount.total) {
-      // TODO: pass payer info on order create
+      /*
+      TODO: pass payer info on order create
       return {
         intent: 'CAPTURE',
         payer: {
@@ -44,7 +45,7 @@
           }
         ]
       }
-      /*
+      */
       return {
         purchase_units: [{
           amount: {
@@ -52,7 +53,6 @@
           }
         }]
       }
-      */
     }
     return window._paypalOrderObj
   }
@@ -60,7 +60,7 @@
   window._paypalApprove = new Promise(function (resolve) {
     // https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons
     window.paypal.Buttons({
-      enableStandardCardFields: false,
+      enableStandardCardFields: Boolean(window._paypalStCardFields),
 
       createOrder: function (data, actions) {
         return actions.order.create(window._newPaypalOrderObj())
