@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.18](https://github.com/ecomclub/app-paypal/compare/v0.1.17...v0.1.18) (2019-10-21)
+
+
+### Features
+
+* **create-transaction:** handle transaction verifying paypal order ([eac9797](https://github.com/ecomclub/app-paypal/commit/eac97974a8050d9743a5f13cfd556ca69fcdf11e))
+* **database:** setup table to reference PayPal transactions to store ([7d91ad8](https://github.com/ecomclub/app-paypal/commit/7d91ad85cc3af68b8b060cf141a554d893ac7fcc))
+* **lib-paypal:** add method to verify paypal webhook ([a3636e7](https://github.com/ecomclub/app-paypal/commit/a3636e7936acb6226d4c079cbf523a69bdb97310))
+* **onload:** parse checkout data to paypal order object ([1c4d6f5](https://github.com/ecomclub/app-paypal/commit/1c4d6f51a236fc4d59a6617cce7d58e2d57aec2e))
+* **paypal-order:** method to fetch pre created paypal order ([aed56e1](https://github.com/ecomclub/app-paypal/commit/aed56e1dde126865b08e8c84054570f6d32ca293))
+* **paypal-webhooks:** handle paypal events to update order status ([9790380](https://github.com/ecomclub/app-paypal/commit/97903805b5b0bacebf4406888dbd3b287d58cd26))
+* **store-orders:** methods to work with orders on store api ([d3b76a8](https://github.com/ecomclub/app-paypal/commit/d3b76a8cc0406ed7ca2684489f9c882c3631e9a3))
+
+
+### Bug Fixes
+
+* **create-transaction:** use paypal payment id as transaction code ([ff2f489](https://github.com/ecomclub/app-paypal/commit/ff2f4891cc14004444583a9ce22953e59b9081a7))
+* **onload:** add open_payment_id with paypal order id ([d06617a](https://github.com/ecomclub/app-paypal/commit/d06617a8d56487207e5d26d70bc5328339d97427))
+* **paypal-webhooks:** add order event types ([7415d35](https://github.com/ecomclub/app-paypal/commit/7415d35b68abe99d41596443542a845f3ff53a96))
+
 ### [0.1.17](https://github.com/ecomclub/app-paypal/compare/v0.1.16...v0.1.17) (2019-10-18)
 
 ### [0.1.16](https://github.com/ecomclub/app-paypal/compare/v0.1.15...v0.1.16) (2019-10-18)
