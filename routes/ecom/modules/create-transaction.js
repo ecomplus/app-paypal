@@ -33,15 +33,24 @@ module.exports = appSdk => {
           // validate transaction amount
           if (Array.isArray(paypalOrder.purchase_units) && paypalOrder.purchase_units.length) {
             const paypalPurchaseUnit = paypalOrder.purchase_units[0]
-            const amount = parseFloat(paypalPurchaseUnit.amount.value)
+            // authorizations, captures
+            const paypalPaymentType = paypalPurchaseUnit.payments &&
+              Object.keys(paypalPurchaseUnit.payments)[0]
+            const paypalPayment = paypalPaymentType &&
+              paypalPurchaseUnit.payments[paypalPaymentType][0]
+            const amount = paypalPurchaseUnit.amount
+              ? parseFloat(paypalPurchaseUnit.amount.value)
+              : paypalPayment && parseFloat(paypalPayment.amount.value)
+
             if (amount && amount >= params.amount.total) {
+              const transactionCode = paypalPayment ? paypalPayment.id : paypalOrder.id
               // mount response body
               // https://apx-mods.e-com.plus/api/v1/create_transaction/response_schema.json?store_id=100
               const transaction = {
                 amount,
                 intermediator: {
                   transaction_id: paypalOrder.id,
-                  transaction_code: paypalOrder.id
+                  transaction_code: transactionCode
                 }
               }
 
@@ -58,7 +67,7 @@ module.exports = appSdk => {
               transaction.intermediator.transaction_reference = paypalPurchaseUnit.reference_id
 
               // save to order database
-              return save(paypalOrderId, storeId, orderId)
+              return save(transactionCode, storeId, orderId)
                 .then(() => {
                   // all done
                   // send response and finish process
