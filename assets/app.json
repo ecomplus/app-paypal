@@ -8,6 +8,9 @@
   "authentication": true,
   "auth_callback_uri": "https://paypal.ecomplus.biz/ecom/auth-callback",
   "auth_scope": {
+    "procedures": [
+      "POST"
+    ],
     "orders": [
       "GET"
     ],
