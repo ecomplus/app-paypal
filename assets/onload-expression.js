@@ -75,7 +75,7 @@
     return window._paypalOrderObj
   }
 
-  window._paypalApprove = new Promise(function (resolve) {
+  window._paypalApprove = new Promise(function (resolve, reject) {
     // https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons
     window.paypal.Buttons({
       enableStandardCardFields: Boolean(window._paypalStCardFields),
@@ -91,6 +91,10 @@
             open_payment_id: details.id
           })
         })
+      },
+
+      onError: function (err) {
+        reject(err)
       }
     }).render('#paypal-button-container')
   })
