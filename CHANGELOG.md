@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.19](https://github.com/ecomclub/app-paypal/compare/v0.1.18...v0.1.19) (2019-10-22)
+
+
+### Bug Fixes
+
+* **onload:** handle paypal buttons error (reject) ([944c495](https://github.com/ecomclub/app-paypal/commit/944c4959d69bdae7b23018bae657680624295795))
+
 ### [0.1.18](https://github.com/ecomclub/app-paypal/compare/v0.1.17...v0.1.18) (2019-10-21)
 
 
