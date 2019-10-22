@@ -2,7 +2,7 @@
 
 // preset default PayPal REST API env
 if (!process.env.DEFAULT_PAYPAL_ENV) {
-  process.env.DEFAULT_PAYPAL_ENV = 'sandbox'
+  process.env.DEFAULT_PAYPAL_ENV = 'live'
 }
 
 // debug errors in files
