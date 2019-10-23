@@ -154,21 +154,24 @@
         "type": "boolean",
         "title": "Debug PayPal SDK",
         "description": "PayPal Checkout SDK dev mode"
-      }
+      },
+      "hide": false
     },
     "paypal_sandbox": {
       "schema": {
         "type": "boolean",
         "title": "PayPal Sandbox",
         "description": "PayPal REST API sandbox env"
-      }
+      },
+      "hide": false
     },
     "enable_standard_card_fiels": {
       "schema": {
         "type": "boolean",
         "title": "Habilitar Standard Card Fields",
         "description": "https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/"
-      }
+      },
+      "hide": false
     }
   }
 }
