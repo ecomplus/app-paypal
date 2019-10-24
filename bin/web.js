@@ -50,6 +50,7 @@ ecomAuth.then(appSdk => {
   ;[
     // routes for E-Com Plus APIs
     '/ecom/auth-callback',
+    '/ecom/webhook',
     '/ecom/modules/create-transaction',
     '/ecom/modules/list-payments',
     // additional routes for PayPal webhooks
