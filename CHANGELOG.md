@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.20](https://github.com/ecomclub/app-paypal/compare/v0.1.19...v0.1.20) (2019-10-24)
+
+
+### Bug Fixes
+
+* **assets:** update app json auth scope ([163de8c](https://github.com/ecomclub/app-paypal/commit/163de8cc9300685853316922464808a7bcb64d1e))
+* **routes:** also add /ecom/webhook to express router ([fa95d02](https://github.com/ecomclub/app-paypal/commit/fa95d02534fa01b1534b5d769b8732acede6f60d))
+
 ### [0.1.19](https://github.com/ecomclub/app-paypal/compare/v0.1.18...v0.1.19) (2019-10-22)
 
 
