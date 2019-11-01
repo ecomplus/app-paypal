@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.21](https://github.com/ecomclub/app-paypal/compare/v0.1.20...v0.1.21) (2019-11-01)
+
+
+### Bug Fixes
+
+* **ecom-webhook:** fix getting config (hidden) ([c816a3b](https://github.com/ecomclub/app-paypal/commit/c816a3b839d34f91a1a8583021b5a617f627f186))
+* **procedures:** fix default procedure trigger ([0a76b43](https://github.com/ecomclub/app-paypal/commit/0a76b4383c8d21a2827100a862db1be1c07e9e66))
+
 ### [0.1.20](https://github.com/ecomclub/app-paypal/compare/v0.1.19...v0.1.20) (2019-10-24)
 
 
