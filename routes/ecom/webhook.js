@@ -24,7 +24,8 @@ module.exports = appSdk => {
       new Promise(resolve => {
         if (!trigger.body.paypal_client_id || !trigger.body.paypal_secret) {
           // get app configured options
-          return getConfig({ appSdk, storeId })
+          // including hidden (authenticated) data
+          return getConfig({ appSdk, storeId }, true)
         } else {
           return trigger.body
         }
