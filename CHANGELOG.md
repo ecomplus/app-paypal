@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.30](https://github.com/ecomclub/app-paypal/compare/v0.1.29...v0.1.30) (2019-11-08)
+
+
+### Bug Fixes
+
+* **paypal-webhook:** ignore WEBHOOK_URL_ALREADY_EXISTS (err.response) ([ea8ee1e](https://github.com/ecomclub/app-paypal/commit/ea8ee1e0f17b694d51f1f45358ef035e1285e5e6))
+
 ### [0.1.29](https://github.com/ecomclub/app-paypal/compare/v0.1.28...v0.1.29) (2019-11-08)
 
 
