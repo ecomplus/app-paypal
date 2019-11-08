@@ -28,7 +28,7 @@ module.exports = appSdk => {
       const paypalOrderId = params.open_payment_id
 
       // debug new order
-      logger.log(`New PayPal order ${paypalOrderId} for store #${storeId}&${orderId}`)
+      logger.log(`New PayPal order ${paypalOrderId} for store #${storeId} /${orderId}`)
 
       // send request to PayPal API
       // https://developer.paypal.com/docs/api/orders/v2/#orders_get
