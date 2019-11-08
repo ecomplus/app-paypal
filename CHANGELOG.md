@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.22](https://github.com/ecomclub/app-paypal/compare/v0.1.21...v0.1.22) (2019-11-08)
+
+
+### Bug Fixes
+
+* **paypal-sdk:** set disable-funding=card by default ([05d236e](https://github.com/ecomclub/app-paypal/commit/05d236e6a76508ef76239716e3673727dab11a84))
+
 ### [0.1.21](https://github.com/ecomclub/app-paypal/compare/v0.1.20...v0.1.21) (2019-11-01)
 
 
