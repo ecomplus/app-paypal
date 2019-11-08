@@ -112,17 +112,23 @@ module.exports = appSdk => {
       })
 
       .catch(err => {
-        if (!err.request && err.name !== CLIENT_ERR) {
-          // not Axios error ?
-          logger.error(err)
+        const { name, message } = err
+        if (name === CLIENT_ERR || name === 'TransactionCodeNotFound') {
+          // return response with client error code
+          res.status(400)
+          res.send({ name, message })
+        } else {
+          if (!err.request) {
+            // not Axios error ?
+            logger.error(err)
+          }
+          // return response with error
+          res.status(500)
+          res.send({
+            error: 'paypal_webhook_error',
+            message
+          })
         }
-        // return response with error
-        res.status(500)
-        const { message } = err
-        res.send({
-          error: 'paypal_webhook_error',
-          message
-        })
       })
   }
 }
