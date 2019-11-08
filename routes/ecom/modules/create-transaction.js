@@ -1,5 +1,7 @@
 'use strict'
 
+// log on files
+const logger = require('console-files')
 // get pre-created PayPal order
 const getPaypalOrder = require(process.cwd() + '/lib/paypal-api/get-order')
 // SQLite3 database abstracted
@@ -24,6 +26,9 @@ module.exports = appSdk => {
       // https://apx-mods.e-com.plus/api/v1/create_transaction/schema.json?store_id=100
       const orderId = params.order_id
       const paypalOrderId = params.open_payment_id
+
+      // debug new order
+      logger.log(`New PayPal order ${paypalOrderId} for store #${storeId}&${orderId}`)
 
       // send request to PayPal API
       // https://developer.paypal.com/docs/api/orders/v2/#orders_get
