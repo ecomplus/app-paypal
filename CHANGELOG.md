@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.24](https://github.com/ecomclub/app-paypal/compare/v0.1.23...v0.1.24) (2019-11-08)
+
+
+### Features
+
+* **paypal-client:** optionally add partner id header ([f430a6f](https://github.com/ecomclub/app-paypal/commit/f430a6f37408a9571a2be71caf80fc3bc7ef1b3e))
+
+
+### Bug Fixes
+
+* **get-order:** fix using PayPalHttpClient ([170d00f](https://github.com/ecomclub/app-paypal/commit/170d00fad0dcf818bbccea851f6d3e2c3990df49))
+
 ### [0.1.23](https://github.com/ecomclub/app-paypal/compare/v0.1.22...v0.1.23) (2019-11-08)
 
 
