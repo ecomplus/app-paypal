@@ -1,7 +1,7 @@
 'use strict'
 
 // log on files
-const logger = require('console-files')
+// const logger = require('console-files')
 // read configured E-Com Plus app data
 const getConfig = require(process.cwd() + '/lib/store-api/get-config')
 // create PayPal experience profile
@@ -17,7 +17,7 @@ const ECHO_API_ERROR = 'STORE_API_ERR'
 module.exports = appSdk => {
   return (req, res) => {
     const { storeId } = req
-    logger.log(`Store webhook #${storeId}`)
+    // logger.log(`Store webhook #${storeId}`)
     // treat E-Com Plus trigger body here
     // https://developers.e-com.plus/docs/api/#/store/triggers/
     const trigger = req.body
@@ -35,7 +35,6 @@ module.exports = appSdk => {
       })
 
         .then(configObj => {
-          logger.log(configObj)
           // check both PayPal app credentials
           const paypalClientId = configObj.paypal_client_id
           const paypalSecret = configObj.paypal_secret
@@ -67,14 +66,12 @@ module.exports = appSdk => {
           paypalEnv,
           store
         }) => {
-          logger.log(store)
           // setup PayPal web profile and webhook once per store
           return createPaypalWebhook(
             paypalEnv,
             paypalClientId,
             paypalSecret
           ).then(() => {
-            logger.log('PayPal Webhook')
             return createPaypalProfile(
               paypalEnv,
               paypalClientId,
