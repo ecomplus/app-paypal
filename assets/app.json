@@ -104,6 +104,18 @@
       },
       "hide": false
     },
+    "discount_payment_method": {
+      "schema": {
+        "type": "string",
+        "enum": [
+          "balance_on_intermediary",
+          "credit_card"
+        ],
+        "title": "Desconto disponível para",
+        "description": "Restringir desconto por método de pagamento (PayPal ou cartão de crédito)"
+      },
+      "hide": false
+    },
     "installments_option": {
       "schema": {
         "type": "object",
