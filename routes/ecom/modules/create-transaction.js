@@ -56,6 +56,9 @@ module.exports = appSdk => {
                 intermediator: {
                   transaction_id: paypalOrder.id,
                   transaction_code: transactionCode
+                },
+                status: {
+                  current: 'under_analysis'
                 }
               }
 
