@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.25](https://github.com/ecomclub/app-paypal/compare/v0.1.24...v0.1.25) (2019-11-08)
+
+
+### Bug Fixes
+
+* **create-transaction:** set status to under analysis by default ([4a91d66](https://github.com/ecomclub/app-paypal/commit/4a91d6640ba4a3ad3ca9d83e957b8478938238d1))
+
 ### [0.1.24](https://github.com/ecomclub/app-paypal/compare/v0.1.23...v0.1.24) (2019-11-08)
 
 
