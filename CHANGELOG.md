@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.32](https://github.com/ecomclub/app-paypal/compare/v0.1.31...v0.1.32) (2019-11-08)
+
+
+### Bug Fixes
+
+* **paypal-webhook:** skip logging transaction not found, return 400 ([87d9d3e](https://github.com/ecomclub/app-paypal/commit/87d9d3ec67052683abd157522d6279e36e154557))
+
 ### [0.1.31](https://github.com/ecomclub/app-paypal/compare/v0.1.30...v0.1.31) (2019-11-08)
 
 
