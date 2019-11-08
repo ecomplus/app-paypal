@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.23](https://github.com/ecomclub/app-paypal/compare/v0.1.22...v0.1.23) (2019-11-08)
+
+
+### Bug Fixes
+
+* **paypal-sdk:** set disable-funding=card when scf not true ([9957463](https://github.com/ecomclub/app-paypal/commit/995746357f08db31ed235812aa5ac17ff5ca02bf))
+
 ### [0.1.22](https://github.com/ecomclub/app-paypal/compare/v0.1.21...v0.1.22) (2019-11-08)
 
 
