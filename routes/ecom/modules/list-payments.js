@@ -103,7 +103,7 @@ module.exports = appSdk => {
       `?client-id=${paypalClientId}` +
       `&currency=${params.currency_id}` +
       `&locale=${locales[0]}_${(locales[1] || locales[0]).toUpperCase()}`
-    if (config.enable_standard_card_fiels) {
+    if (!config.enable_standard_card_fiels) {
       paypalScript += '&disable-funding=card'
     }
     if (config.paypal_debug) {
