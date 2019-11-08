@@ -34,11 +34,21 @@ module.exports = appSdk => {
     // https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100
     const paymentGateway = newPaymentGateway(params.lang)
     // merge configured options to payment gateway object
-    ;['label', 'text', 'icon', 'discount'].forEach(prop => {
+    ;['label', 'text', 'icon'].forEach(prop => {
       if (config[prop]) {
         paymentGateway[prop] = config[prop]
       }
     })
+
+    // check available discount by payment method
+    const paymentMethod = paymentGateway.payment_method
+    if (
+      config.discount &&
+      (!config.discount_payment_method || config.discount_payment_method === paymentMethod.code)
+    ) {
+      paymentGateway.discount = config.discount
+    }
+
     // setup response object
     const response = {
       payment_gateways: [paymentGateway]
