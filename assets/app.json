@@ -172,6 +172,13 @@
         "description": "https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/"
       },
       "hide": false
+    },
+    "enable_paypal_plus": {
+      "schema": {
+        "type": "boolean",
+        "title": "Habilitar PayPal Plus",
+        "description": "Checkout transaparente via PayPal (necessário aprovação da conta)"
+      }
     }
   }
 }
