@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.33](https://github.com/ecomclub/app-paypal/compare/v0.1.32...v0.1.33) (2019-11-10)
+
+
+### Features
+
+* **list-payments:** check available discount by payment method ([bba3c4b](https://github.com/ecomclub/app-paypal/commit/bba3c4b5555cabfe4644cee080ee5265dc9afebb))
+* **onload-expression:** handling paypal plus selection page ([89bbd86](https://github.com/ecomclub/app-paypal/commit/89bbd8622bfdf5305e3c06b990806e570bdf9e11))
+* **parse-payment:** parsing list payments to paypal payment v1 ([ae47740](https://github.com/ecomclub/app-paypal/commit/ae4774099ef4d53768f45e3ff6cb167433686af3))
+* **payment-gateway:** also handling gateway object for paypal plus ([8f4cca1](https://github.com/ecomclub/app-paypal/commit/8f4cca15c209801e9f896ddc0e29b74539f0c059))
+* **paypal-plus:** finally prepare list payments to setup paypal plus ([cfe999a](https://github.com/ecomclub/app-paypal/commit/cfe999a59b714945dc7c30bff1cc27547aa06322))
+
+
+### Bug Fixes
+
+* **payment-gateway:** fix paypal plus container (add continue button) ([cafb6bf](https://github.com/ecomclub/app-paypal/commit/cafb6bffb1758ba43a73a7040f3b48c6967236d7))
+
 ### [0.1.32](https://github.com/ecomclub/app-paypal/compare/v0.1.31...v0.1.32) (2019-11-08)
 
 
