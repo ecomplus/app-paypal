@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/ecomclub/app-paypal/compare/v0.3.2...v0.3.3) (2019-11-11)
+
+
+### Features
+
+* **paypal-lib:** add execute payment handler ([3eb69d6](https://github.com/ecomclub/app-paypal/commit/3eb69d66b672abae2f26dae0aa14a2e5b0332ab7))
+
+
+### Bug Fixes
+
+* **create-transaction:** check for paypal payer id to execute payemnt ([d956fb5](https://github.com/ecomclub/app-paypal/commit/d956fb575e38ef5c901b52e7c57235cfe0b1e489))
+* **ppp-select-page:** pass both original and returned payment ids ([b610d39](https://github.com/ecomclub/app-paypal/commit/b610d39a3cc50c1d57db6c995f8a4b9eea064cbb))
+
 ### [0.3.2](https://github.com/ecomclub/app-paypal/compare/v0.3.1...v0.3.2) (2019-11-11)
 
 
