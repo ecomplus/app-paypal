@@ -4,6 +4,8 @@
 const logger = require('console-files')
 // get pre-created PayPal order
 const getPaypalOrder = require(process.cwd() + '/lib/paypal-api/get-order')
+// execute PayPal payment request
+const executePaypalPayment = require(process.cwd() + '/lib/paypal-api/execute-payment')
 // SQLite3 database abstracted
 const { save } = require(process.cwd() + '/lib/database')
 
@@ -25,14 +27,37 @@ module.exports = appSdk => {
       // params object follows create transaction request schema:
       // https://apx-mods.e-com.plus/api/v1/create_transaction/schema.json?store_id=100
       const orderId = params.order_id
-      const paypalOrderId = params.open_payment_id
 
-      // debug new order
-      logger.log(`New PayPal order ${paypalOrderId} for store #${storeId} /${orderId}`)
+      new Promise((resolve, reject) => {
+        const paypalPayerId = params.intermediator_buyer_id
+        if (paypalPayerId) {
+          const [paypalPaymentId, paypalOrderId] = params.open_payment_id.split('/')
+          if (paypalPaymentId && paypalOrderId) {
+            // execute payment
+            // https://developer.paypal.com
+            // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
+            executePaypalPayment(paypalEnv, paypalClientId, paypalSecret, paypalPaymentId, {
+              payer_id: paypalPayerId
+            })
+              .then(() => resolve(paypalOrderId))
+          } else {
+            const err = new Error('Unknown PayPal Payment/Order IDs')
+            err.statusCode = 400
+            reject(err)
+          }
+        } else {
+          resolve(params.open_payment_id)
+        }
+      })
 
-      // send request to PayPal API
-      // https://developer.paypal.com/docs/api/orders/v2/#orders_get
-      getPaypalOrder(paypalEnv, paypalClientId, paypalSecret, paypalOrderId)
+        .then(paypalOrderId => {
+          // debug new order
+          logger.log(`New PayPal order ${paypalOrderId} for store #${storeId} /${orderId}`)
+
+          // send request to PayPal API
+          // https://developer.paypal.com/docs/api/orders/v2/#orders_get
+          return getPaypalOrder(paypalEnv, paypalClientId, paypalSecret, paypalOrderId)
+        })
 
         .then(paypalOrder => {
           // validate transaction amount
@@ -93,7 +118,7 @@ module.exports = appSdk => {
 
         .catch(err => {
           // return error status code
-          res.status(500)
+          res.status(err.statusCode || 500)
           const { message } = err
           res.send({
             error: 'CREATE_TRANSACTION_ERR',
