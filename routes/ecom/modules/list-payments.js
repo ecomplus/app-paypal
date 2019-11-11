@@ -179,7 +179,7 @@ module.exports = appSdk => {
         const timeout = setTimeout(() => {
           skip = true
           resolve()
-        }, 8500)
+        }, 8000)
 
         // start PayPal Plus integration flux creating payment request
         createPaypalPayment(paypalEnv, paypalClientId, paypalSecret, parsePaymentBody(params))
