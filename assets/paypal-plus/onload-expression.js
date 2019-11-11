@@ -15,6 +15,12 @@
       },
       onError: function (err) {
         reject(err)
+      },
+      onLoad: function () {
+        var $loading = document.getElementById('pppLoading')
+        if ($loading) {
+          $loading.remove()
+        }
       }
     }
 
