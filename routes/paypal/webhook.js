@@ -74,16 +74,21 @@ module.exports = appSdk => {
             status = 'unauthorized'
             break
           case 'PAYMENT.CAPTURE.COMPLETED':
+          case 'PAYMENT.SALE.COMPLETED':
             status = 'paid'
             break
           case 'PAYMENT.CAPTURE.DENIED':
+          case 'PAYMENT.SALE.DENIED':
             status = 'voided'
             break
           case 'PAYMENT.CAPTURE.PENDING':
+          case 'PAYMENT.SALE.PENDING':
             status = 'pending'
             break
           case 'PAYMENT.CAPTURE.REFUNDED':
           case 'PAYMENT.CAPTURE.REVERSED':
+          case 'PAYMENT.SALE.REFUNDED':
+          case 'PAYMENT.SALE.REVERSED':
             status = 'refunded'
             break
           default:
