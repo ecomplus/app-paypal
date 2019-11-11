@@ -8,9 +8,9 @@
       mode: window._paypalEnv,
       disableContinue: 'pppContinue',
       enableContinue: 'pppContinue',
-      onContinue: function (payload, payerId, paymentId) {
+      onContinue: function (_, payerId, paymentId) {
         resolve({
-          open_payment_id: paymentId || (payload && payload.payment_id) || ''
+          open_payment_id: window._paypalPaymentId || paymentId || ''
         })
       },
       onError: function (err) {

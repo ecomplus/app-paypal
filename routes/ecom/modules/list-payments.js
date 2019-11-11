@@ -141,12 +141,15 @@ module.exports = appSdk => {
 
       // setup global variables on client for onload expression
       let onloadExpression = `window._paypalEnv="${paypalEnv}";`
-      if (paypalPayment && Array.isArray(paypalPayment.links)) {
-        // approval URL for PayPal Plus
+      if (paypalPayment) {
+        // payment request ID and approval URL for PayPal Plus
         // https://developer.paypal.com/docs/integration/paypal-plus/mexico-brazil/create-a-payment-request/
-        const linkObj = paypalPayment.links.find(({ rel }) => rel === 'approval_url')
-        if (linkObj) {
-          onloadExpression += `window._paypalApprovalUrl="${linkObj.href}";`
+        onloadExpression += `window._paypalPaymentId="${paypalPayment.id}";`
+        if (Array.isArray(paypalPayment.links)) {
+          const linkObj = paypalPayment.links.find(({ rel }) => rel === 'approval_url')
+          if (linkObj) {
+            onloadExpression += `window._paypalApprovalUrl="${linkObj.href}";`
+          }
         }
       }
       if (config.enable_standard_card_fiels) {
