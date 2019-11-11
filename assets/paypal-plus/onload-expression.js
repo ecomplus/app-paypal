@@ -47,7 +47,6 @@
       }
     }
 
-    var ppp = window.PAYPAL.apps.PPP(pppParams)
-    console.log(ppp)
+    window._pppApp = window.PAYPAL.apps.PPP(pppParams)
   })
 }())
