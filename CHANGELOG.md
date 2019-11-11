@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/ecomclub/app-paypal/compare/v0.2.3...v0.2.4) (2019-11-11)
+
+
+### Bug Fixes
+
+* **ppp-selection-page:** fix submit button styles and add spinner ([c066d8a](https://github.com/ecomclub/app-paypal/commit/c066d8ac9feb194542eb746df50259f6a7eb9528))
+
 ### [0.2.3](https://github.com/ecomclub/app-paypal/compare/v0.2.2...v0.2.3) (2019-11-11)
 
 
