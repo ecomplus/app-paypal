@@ -15,6 +15,9 @@ module.exports = appSdk => {
     // app configured options
     const config = Object.assign({}, application.data, application.hidden_data)
     const paypalClientId = config.paypal_client_id
+    const paypalSecret = config.paypal_secret
+    const paypalEnv = config.paypal_sandbox ? 'sandbox' : 'live'
+
     if (!paypalClientId) {
       // must have configured PayPal app ID and secret
       return res.status(400).send({
@@ -22,7 +25,6 @@ module.exports = appSdk => {
         message: 'PayPal Client ID is unset on app hidden data (merchant must configure the app)'
       })
     }
-    const paypalEnv = config.paypal_sandbox ? 'sandbox' : 'live'
 
     // params object follows list payments request schema:
     // https://apx-mods.e-com.plus/api/v1/list_payments/schema.json?store_id=100
@@ -168,19 +170,38 @@ module.exports = appSdk => {
     }
 
     new Promise(resolve => {
-      if (config.enable_paypal_plus && params.lang === 'pt_br') {
-        // also add payment gateway for PayPal Plus
-        createPaypalPayment(parsePaymentBody(params))
-          .then(paypalPayment => addPaymentGateway(true, paypalPayment))
-          .finally(resolve)
-      } else {
+      if (!config.enable_paypal_plus) {
         resolve()
+      } else {
+        // also add payment gateway for PayPal Plus
+        let skip = false
+        // prevent list payments timeout
+        const timeout = setTimeout(() => {
+          skip = true
+          resolve()
+        }, 8500)
+
+        // start PayPal Plus integration flux creating payment request
+        createPaypalPayment(paypalEnv, paypalClientId, paypalSecret, parsePaymentBody(params))
+          .then(paypalPayment => {
+            if (!skip) {
+              addPaymentGateway(true, paypalPayment)
+              resolve()
+            }
+          })
+          .catch(() => {
+            // resolve anyway to list payments without PayPal Plus option
+            resolve()
+          })
+          .finally(() => clearTimeout(timeout))
       }
-    }).then(() => {
-      // common PayPal SPB payment
-      addPaymentGateway()
-      // finally send success response
-      res.send(response)
     })
+
+      .then(() => {
+        // common PayPal SPB payment
+        addPaymentGateway()
+        // finally send success response
+        res.send(response)
+      })
   }
 }
