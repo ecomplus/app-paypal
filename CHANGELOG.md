@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.9](https://github.com/ecomclub/app-paypal/compare/v0.2.8...v0.2.9) (2019-11-11)
+
+
+### Bug Fixes
+
+* **paypal-webhook:** also handling PAYMENT.PAYOUTSBATCH events ([443d99c](https://github.com/ecomclub/app-paypal/commit/443d99ccb5d9b2e34a3f4c02de719adb24d4c549))
+
 ### [0.2.8](https://github.com/ecomclub/app-paypal/compare/v0.2.7...v0.2.8) (2019-11-11)
 
 
