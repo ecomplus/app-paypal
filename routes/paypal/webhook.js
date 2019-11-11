@@ -66,7 +66,8 @@ module.exports = appSdk => {
         // we have full PayPal event object here
         // parse PayPal event type to E-Com Plus financial status
         let status
-        switch (paypalEvent.event_type) {
+        const paypalEventType = paypalEvent.event_type
+        switch (paypalEventType) {
           case 'PAYMENT.AUTHORIZATION.CREATED':
           case 'PAYMENT.PAYOUTSBATCH.PROCESSING':
             status = 'under_analysis'
@@ -105,7 +106,9 @@ module.exports = appSdk => {
           .then(orders => {
             // change transaction status on E-Com Plus API
             const notificationCode = body.id
-            const flags = [paypalEvent.event_type]
+            const flags = [
+              paypalEventType.substr(paypalEventType.length - 20)
+            ]
             const promises = []
             orders.forEach(order => {
               promises.push(updatePaymentStatus(sdkClient, order._id, status, notificationCode, flags))
