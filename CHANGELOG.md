@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.7](https://github.com/ecomclub/app-paypal/compare/v0.2.6...v0.2.7) (2019-11-11)
+
+
+### Bug Fixes
+
+* **paypal-webhook:** handling PAYMENT.SALE events for paypal plus ([5126186](https://github.com/ecomclub/app-paypal/commit/51261868f7aa6e680c598eca1e51d6e9d47df436))
+* **paypal-webhooks:** update event names list for paypal plus ([2098f63](https://github.com/ecomclub/app-paypal/commit/2098f6386a9d71251f4194d2a3bc376e0d227b56))
+
 ### [0.2.6](https://github.com/ecomclub/app-paypal/compare/v0.2.5...v0.2.6) (2019-11-11)
 
 
