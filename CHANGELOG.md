@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/ecomclub/app-paypal/compare/v0.2.0...v0.2.1) (2019-11-11)
+
+
+### Bug Fixes
+
+* **list-payments:** fix creating payment request for paypal plus ([0e6fbf4](https://github.com/ecomclub/app-paypal/commit/0e6fbf4dbc451aa033fd2c98cb890da53f42742c))
+
 ## [0.2.0](https://github.com/ecomclub/app-paypal/compare/v0.1.33...v0.2.0) (2019-11-10)
 
 ### [0.1.33](https://github.com/ecomclub/app-paypal/compare/v0.1.32...v0.1.33) (2019-11-10)
