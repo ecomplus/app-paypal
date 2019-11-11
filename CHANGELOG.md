@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4](https://github.com/ecomclub/app-paypal/compare/v0.3.3...v0.3.4) (2019-11-11)
+
+
+### Bug Fixes
+
+* **create-payment:** check open_payment_id to prevent fatal error ([a720cac](https://github.com/ecomclub/app-paypal/commit/a720cac40b5863d3ad8c7072df1255099ce85d80))
+* **list-payments:** checkout with paypal plus without new payment ([4bea048](https://github.com/ecomclub/app-paypal/commit/4bea0489c360bbf11c45645dc75b34ff94dfed76))
+
 ### [0.3.3](https://github.com/ecomclub/app-paypal/compare/v0.3.2...v0.3.3) (2019-11-11)
 
 
