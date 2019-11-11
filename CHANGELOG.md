@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/ecomclub/app-paypal/compare/v0.3.0...v0.3.1) (2019-11-11)
+
+
+### Bug Fixes
+
+* **paypal-webhook:** up to 20 chars on payment history flag (event type) ([d0e1b11](https://github.com/ecomclub/app-paypal/commit/d0e1b1123eac22fc7e9844ace5ddeb5e3004ea62))
+
 ## [0.3.0](https://github.com/ecomclub/app-paypal/compare/v0.2.9...v0.3.0) (2019-11-11)
 
 ### [0.2.9](https://github.com/ecomclub/app-paypal/compare/v0.2.8...v0.2.9) (2019-11-11)
