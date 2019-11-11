@@ -23,7 +23,7 @@ module.exports = appSdk => {
     const paypalSecret = config.paypal_secret
     const paypalEnv = config.paypal_sandbox && 'sandbox'
 
-    if (paypalClientId && paypalSecret) {
+    if (paypalClientId && paypalSecret && params.open_payment_id) {
       // params object follows create transaction request schema:
       // https://apx-mods.e-com.plus/api/v1/create_transaction/schema.json?store_id=100
       const orderId = params.order_id
