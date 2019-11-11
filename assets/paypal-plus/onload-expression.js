@@ -8,9 +8,13 @@
       mode: window._paypalEnv,
       disableContinue: 'pppContinue',
       enableContinue: 'pppContinue',
-      onContinue: function (_, payerId, paymentId) {
+      onContinue: function (rememberedCards, payerId, paymentId) {
         resolve({
-          open_payment_id: window._paypalPaymentId || paymentId || ''
+          credit_card: {
+            token: rememberedCards || ''
+          },
+          intermediator_buyer_id: payerId,
+          open_payment_id: paymentId || window._paypalPaymentId || ''
         })
       },
       onError: function (err) {
