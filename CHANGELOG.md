@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://github.com/ecomclub/app-paypal/compare/v0.2.5...v0.2.6) (2019-11-11)
+
+
+### Bug Fixes
+
+* **ppp-select-page:** minor checkout btn style fix ([605f9f8](https://github.com/ecomclub/app-paypal/commit/605f9f8df914b968d281d5be36945d0b66805417))
+
 ### [0.2.5](https://github.com/ecomclub/app-paypal/compare/v0.2.4...v0.2.5) (2019-11-11)
 
 
