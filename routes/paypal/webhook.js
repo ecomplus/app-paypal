@@ -68,6 +68,7 @@ module.exports = appSdk => {
         let status
         switch (paypalEvent.event_type) {
           case 'PAYMENT.AUTHORIZATION.CREATED':
+          case 'PAYMENT.PAYOUTSBATCH.PROCESSING':
             status = 'under_analysis'
             break
           case 'PAYMENT.AUTHORIZATION.VOIDED':
@@ -75,10 +76,12 @@ module.exports = appSdk => {
             break
           case 'PAYMENT.CAPTURE.COMPLETED':
           case 'PAYMENT.SALE.COMPLETED':
+          case 'PAYMENT.PAYOUTSBATCH.SUCCESS':
             status = 'paid'
             break
           case 'PAYMENT.CAPTURE.DENIED':
           case 'PAYMENT.SALE.DENIED':
+          case 'PAYMENT.PAYOUTSBATCH.DENIED':
             status = 'voided'
             break
           case 'PAYMENT.CAPTURE.PENDING':
@@ -89,6 +92,7 @@ module.exports = appSdk => {
           case 'PAYMENT.CAPTURE.REVERSED':
           case 'PAYMENT.SALE.REFUNDED':
           case 'PAYMENT.SALE.REVERSED':
+          case 'RISK.DISPUTE.CREATED':
             status = 'refunded'
             break
           default:
