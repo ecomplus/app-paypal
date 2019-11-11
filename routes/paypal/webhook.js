@@ -100,10 +100,11 @@ module.exports = appSdk => {
         return listOrdersByTransaction(sdkClient, transactionCode, intermediator.code)
           .then(orders => {
             // change transaction status on E-Com Plus API
-            const notificationCode = body.notification_id
+            const notificationCode = body.id
+            const flags = [paypalEvent.event_type]
             const promises = []
             orders.forEach(order => {
-              promises.push(updatePaymentStatus(sdkClient, order._id, status, notificationCode))
+              promises.push(updatePaymentStatus(sdkClient, order._id, status, notificationCode, flags))
             })
             return Promise.all(promises)
           })
