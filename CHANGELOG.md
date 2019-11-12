@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.5](https://github.com/ecomclub/app-paypal/compare/v0.3.4...v0.3.5) (2019-11-12)
+
+
+### Bug Fixes
+
+* **create-transaction:** fix transaction handler for paypal v1 (plus) ([6805950](https://github.com/ecomclub/app-paypal/commit/68059505031951694255d71e0a94eef048bfb227))
+
 ### [0.3.4](https://github.com/ecomclub/app-paypal/compare/v0.3.3...v0.3.4) (2019-11-11)
 
 
