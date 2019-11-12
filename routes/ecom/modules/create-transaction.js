@@ -39,7 +39,7 @@ module.exports = appSdk => {
             executePaypalPayment(paypalEnv, paypalClientId, paypalSecret, paypalPaymentId, {
               payer_id: paypalPayerId
             })
-              .then(() => resolve(paypalOrderId))
+              .then(paypalPayment => resolve(paypalOrderId, paypalPayment))
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
             err.statusCode = 400
@@ -50,55 +50,89 @@ module.exports = appSdk => {
         }
       })
 
-        .then(paypalOrderId => {
+        .then((paypalOrderId, paypalPayment) => {
           // debug new order
           logger.log(`New PayPal order ${paypalOrderId} for store #${storeId} /${orderId}`)
 
-          // send request to PayPal API
-          // https://developer.paypal.com/docs/api/orders/v2/#orders_get
-          return getPaypalOrder(paypalEnv, paypalClientId, paypalSecret, paypalOrderId)
+          if (!paypalPayment) {
+            // send request to PayPal API
+            // https://developer.paypal.com/docs/api/orders/v2/#orders_get
+            return getPaypalOrder(paypalEnv, paypalClientId, paypalSecret, paypalOrderId)
+          } else {
+            return {
+              ...paypalPayment,
+              reference_id: paypalOrderId
+            }
+          }
         })
 
         .then(paypalOrder => {
           // validate transaction amount
+          let amount, transactionCode, paymentLink, paymentReference
+
           if (Array.isArray(paypalOrder.purchase_units) && paypalOrder.purchase_units.length) {
+            // PayPal Checkout v2
             const paypalPurchaseUnit = paypalOrder.purchase_units[0]
             // authorizations, captures
             const paypalPaymentType = paypalPurchaseUnit.payments &&
               Object.keys(paypalPurchaseUnit.payments)[0]
             const paypalPayment = paypalPaymentType &&
               paypalPurchaseUnit.payments[paypalPaymentType][0]
-            const amount = paypalPurchaseUnit.amount
+
+            transactionCode = paypalPayment ? paypalPayment.id : paypalOrder.id
+            amount = paypalPurchaseUnit.amount
               ? parseFloat(paypalPurchaseUnit.amount.value)
               : paypalPayment && parseFloat(paypalPayment.amount.value)
 
-            if (amount && amount >= params.amount.total) {
-              const transactionCode = paypalPayment ? paypalPayment.id : paypalOrder.id
-              // mount response body
-              // https://apx-mods.e-com.plus/api/v1/create_transaction/response_schema.json?store_id=100
-              const transaction = {
-                amount,
-                intermediator: {
-                  transaction_id: paypalOrder.id,
-                  transaction_code: transactionCode
-                },
-                status: {
-                  current: 'under_analysis'
+            // save some additional PayPal order data
+            if (Array.isArray(paypalOrder.links)) {
+              for (let i = 0; i < paypalOrder.links.length; i++) {
+                const link = paypalOrder.links[i]
+                if (link.rel === 'approve') {
+                  paymentLink = link.href
+                  break
                 }
               }
+            }
+            paymentReference = paypalPurchaseUnit.reference_id
+          } else if (Array.isArray(paypalOrder.transactions)) {
+            const paypalTransaction = paypalOrder.transactions[0]
+            if (paypalTransaction) {
+              // PayPal Payments v1
+              // PayPal Plus executed payment
+              // https://developer.paypal.com
+              // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
+              const paypalSale = Array.isArray(paypalTransaction.related_resources) &&
+                paypalTransaction.related_resources[0] &&
+                paypalTransaction.related_resources[0].sale
 
-              // save some PayPal order data
-              if (Array.isArray(paypalOrder.links)) {
-                for (let i = 0; i < paypalOrder.links.length; i++) {
-                  const link = paypalOrder.links[i]
-                  if (link.rel === 'approve') {
-                    transaction.payment_link = link.href
-                    break
-                  }
-                }
+              paymentReference = paypalOrder.reference_id
+              transactionCode = paypalSale ? paypalSale.id : paymentReference
+              amount = paypalTransaction.amount && parseFloat(paypalTransaction.amount.total)
+            }
+          }
+
+          if (amount && amount >= params.amount.total) {
+            // mount response body
+            // https://apx-mods.e-com.plus/api/v1/create_transaction/response_schema.json?store_id=100
+            const transaction = {
+              amount,
+              intermediator: {
+                transaction_id: paypalOrder.id,
+                transaction_code: transactionCode
+              },
+              status: {
+                current: 'under_analysis'
               }
-              transaction.intermediator.transaction_reference = paypalPurchaseUnit.reference_id
+            }
+            if (paymentLink) {
+              transaction.payment_link = paymentLink
+            }
+            if (paymentReference) {
+              transaction.intermediator.transaction_reference = paymentReference
+            }
 
+            if (transactionCode) {
               // save to order database
               return save(transactionCode, storeId, orderId)
                 .then(() => {
@@ -106,6 +140,10 @@ module.exports = appSdk => {
                   // send response and finish process
                   res.send({ transaction })
                 })
+            } else {
+              // send response with additional notes
+              transaction.notes = 'ATENTION: Can\'t save PayPal reference to update order status'
+              return res.send({ transaction })
             }
           }
 
