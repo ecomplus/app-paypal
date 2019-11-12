@@ -39,18 +39,18 @@ module.exports = appSdk => {
             executePaypalPayment(paypalEnv, paypalClientId, paypalSecret, paypalPaymentId, {
               payer_id: paypalPayerId
             })
-              .then(paypalPayment => resolve(paypalOrderId, paypalPayment))
+              .then(paypalPayment => resolve({ paypalOrderId, paypalPayment }))
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
             err.statusCode = 400
             reject(err)
           }
         } else {
-          resolve(params.open_payment_id)
+          resolve({ paypalOrderId: params.open_payment_id })
         }
       })
 
-        .then((paypalOrderId, paypalPayment) => {
+        .then(({ paypalOrderId, paypalPayment }) => {
           // debug new order
           logger.log(`New PayPal order ${paypalOrderId} for store #${storeId} /${orderId}`)
 
