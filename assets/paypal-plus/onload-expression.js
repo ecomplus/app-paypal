@@ -4,6 +4,7 @@
     // /docs/integration/paypal-plus/mexico-brazil/integrate-a-payment-selection-page/
     var pppParams = {
       approvalUrl: window._paypalApprovalUrl,
+      disallowRememberedCards: false,
       placeholder: 'ppplus',
       mode: window._paypalEnv,
       disableContinue: 'pppContinue',
