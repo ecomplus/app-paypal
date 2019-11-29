@@ -173,34 +173,35 @@ module.exports = appSdk => {
     }
 
     new Promise(resolve => {
-      if (!config.enable_paypal_plus) {
-        resolve()
-      } else if (params.customer && params.items && !params.is_checkout_confirmation) {
-        // also add payment gateway for PayPal Plus
-        let skip = false
-        // prevent list payments timeout
-        const timeout = setTimeout(() => {
-          skip = true
-          resolve()
-        }, 8000)
-
-        // start PayPal Plus integration flux creating payment request
-        createPaypalPayment(paypalEnv, paypalClientId, paypalSecret, parsePaymentBody(params))
-          .then(paypalPayment => {
-            if (!skip) {
-              addPaymentGateway(true, paypalPayment)
-              resolve()
-            }
-          })
-          .catch(() => {
-            // resolve anyway to list payments without PayPal Plus option
+      if (config.enable_paypal_plus) {
+        if (params.customer && params.items && !params.is_checkout_confirmation) {
+          // also add payment gateway for PayPal Plus
+          let skip = false
+          // prevent list payments timeout
+          const timeout = setTimeout(() => {
+            skip = true
             resolve()
-          })
-          .finally(() => clearTimeout(timeout))
-      } else {
+          }, 8000)
+
+          // start PayPal Plus integration flux creating payment request
+          return createPaypalPayment(paypalEnv, paypalClientId, paypalSecret, parsePaymentBody(params))
+            .then(paypalPayment => {
+              if (!skip) {
+                addPaymentGateway(true, paypalPayment)
+                resolve()
+              }
+            })
+            .catch(() => {
+              // resolve anyway to list payments without PayPal Plus option
+              resolve()
+            })
+            .finally(() => clearTimeout(timeout))
+        }
+
         // just to confirm checkout with PayPal Plus
         addPaymentGateway(true)
       }
+      resolve()
     })
 
       .then(() => {
