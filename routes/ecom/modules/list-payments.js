@@ -175,7 +175,7 @@ module.exports = appSdk => {
     new Promise(resolve => {
       if (!config.enable_paypal_plus) {
         resolve()
-      } else if (params.customer && params.items) {
+      } else if (params.customer && params.items && !params.is_checkout_confirmation) {
         // also add payment gateway for PayPal Plus
         let skip = false
         // prevent list payments timeout
