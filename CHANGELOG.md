@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.8](https://github.com/ecomclub/app-paypal/compare/v0.3.7...v0.3.8) (2019-11-29)
+
+
+### Bug Fixes
+
+* **list-payments:** check !is_checkout_confirmation to skip duplications ([2be20ee](https://github.com/ecomclub/app-paypal/commit/2be20eeaca4f7559bccd2f340bf94c963f5a1c6b))
+* **ppp-params:** explicit disallowRememberedCards to false ([1f4f2d4](https://github.com/ecomclub/app-paypal/commit/1f4f2d480cf12d05432ff21cad8b59f0d0545f89))
+
 ### [0.3.7](https://github.com/ecomclub/app-paypal/compare/v0.3.6...v0.3.7) (2019-11-12)
 
 
