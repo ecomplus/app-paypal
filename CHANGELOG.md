@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.10](https://github.com/ecomclub/app-paypal/compare/v0.3.9...v0.3.10) (2019-12-09)
+
+
+### Bug Fixes
+
+* **list-payments:** respond with erro when invalid PayPal credentials ([0de1b8e](https://github.com/ecomclub/app-paypal/commit/0de1b8ed624092382fb6f6bb9a7c0fb9c971f854))
+* **paypal-client:** don't log unauthorized client errors ([a567291](https://github.com/ecomclub/app-paypal/commit/a567291a3026a452f8f0583a7afc7ec224757e43))
+
 ### [0.3.9](https://github.com/ecomclub/app-paypal/compare/v0.3.8...v0.3.9) (2019-11-29)
 
 
