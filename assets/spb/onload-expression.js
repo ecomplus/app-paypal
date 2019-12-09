@@ -1,9 +1,9 @@
 ;(function () {
   window._newPaypalOrderObj = function () {
-    if (window._checkout) {
-      var amount = window._checkout.amount
-      var customer = window._checkout.customer
-      var items = window._checkout.items
+    if (window.storefrontApp) {
+      var amount = window.storefrontApp.amount
+      var customer = window.storefrontApp.customer
+      var items = window.storefrontApp.items
 
       if (amount && amount.total) {
         // parse E-Com Plus checkout data to PayPal order object

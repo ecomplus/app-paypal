@@ -29,8 +29,8 @@
       }
     }
 
-    if (window._checkout) {
-      var customer = window._checkout.customer
+    if (window.storefrontApp) {
+      var customer = window.storefrontApp.customer
       if (customer) {
         pppParams.payerEmail = customer.main_email
         pppParams.payerTaxId = customer.doc_number
