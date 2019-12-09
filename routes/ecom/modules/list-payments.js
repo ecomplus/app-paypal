@@ -172,7 +172,7 @@ module.exports = appSdk => {
         jsClient.onload_expression
     }
 
-    new Promise(resolve => {
+    new Promise((resolve, reject) => {
       if (config.enable_paypal_plus) {
         if (params.customer && params.items && !params.is_checkout_confirmation) {
           // also add payment gateway for PayPal Plus
@@ -191,9 +191,15 @@ module.exports = appSdk => {
                 resolve()
               }
             })
-            .catch(() => {
-              // resolve anyway to list payments without PayPal Plus option
-              resolve()
+            .catch(err => {
+              const { response } = err
+              if (response && response.httpStatusCode === 401) {
+                // invalid PayPal credentials
+                reject(err)
+              } else {
+                // resolve anyway to list payments without PayPal Plus option
+                resolve()
+              }
             })
             .finally(() => clearTimeout(timeout))
         }
@@ -209,6 +215,14 @@ module.exports = appSdk => {
         addPaymentGateway()
         // finally send success response
         res.send(response)
+      })
+
+      .catch(err => {
+        const { response, message } = err
+        res.status(response.httpStatusCode || 400).send({
+          error: 'UNABLE_TO_LIST_PAYMENTS',
+          message: (response && response.error_description) || message
+        })
       })
   }
 }
