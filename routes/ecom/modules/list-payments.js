@@ -65,7 +65,7 @@ module.exports = appSdk => {
       }
 
       const { discount } = paymentGateway
-      if (discount) {
+      if (discount && discount.value > 0) {
         if (discount.apply_at !== 'freight') {
           // default discount option
           const { value } = discount
