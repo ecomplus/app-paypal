@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.12](https://github.com/ecomclub/app-paypal/compare/v0.3.11...v0.3.12) (2019-12-19)
+
+
+### Bug Fixes
+
+* **create-transaction:** fix checking amount (with margin) ([a13b0ba](https://github.com/ecomclub/app-paypal/commit/a13b0ba005e306685086006543c705b5b7104a43))
+
 ### [0.3.11](https://github.com/ecomclub/app-paypal/compare/v0.3.10...v0.3.11) (2019-12-19)
 
 
