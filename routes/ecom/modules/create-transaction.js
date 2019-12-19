@@ -112,7 +112,7 @@ module.exports = appSdk => {
             }
           }
 
-          if (amount && amount >= params.amount.total) {
+          if (amount && amount >= params.amount.total - 1) {
             // mount response body
             // https://apx-mods.e-com.plus/api/v1/create_transaction/response_schema.json?store_id=100
             const transaction = {
