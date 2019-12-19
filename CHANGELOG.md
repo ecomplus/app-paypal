@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.11](https://github.com/ecomclub/app-paypal/compare/v0.3.10...v0.3.11) (2019-12-19)
+
+
+### Bug Fixes
+
+* **assets:** fix clients to consume window.storefrontApp ([fe3b565](https://github.com/ecomclub/app-paypal/commit/fe3b5658adcfe3717f75bd844ecf405bab91f6a8))
+* **list-payments:** check for discount.value before applying ([c9d7d6c](https://github.com/ecomclub/app-paypal/commit/c9d7d6c82a6e0ec927adeb75a707ed927a4df8e7))
+
 ### [0.3.10](https://github.com/ecomclub/app-paypal/compare/v0.3.9...v0.3.10) (2019-12-09)
 
 
