@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.14](https://github.com/ecomclub/app-paypal/compare/v0.3.13...v0.3.14) (2019-12-30)
+
+
+### Bug Fixes
+
+* **paypal-clients:** persist clients to prevent api block ([#15](https://github.com/ecomclub/app-paypal/issues/15)) ([c4ad5f3](https://github.com/ecomclub/app-paypal/commit/c4ad5f344bbcf9717d72af99e43fa6a3f29da261))
+
 ### [0.3.13](https://github.com/ecomclub/app-paypal/compare/v0.3.12...v0.3.13) (2019-12-20)
 
 
