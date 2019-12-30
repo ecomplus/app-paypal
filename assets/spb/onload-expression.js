@@ -81,12 +81,10 @@
       enableStandardCardFields: Boolean(window._paypalStCardFields),
 
       createOrder: function (data, actions) {
-        console.log(actions, actions.payment)
         return actions.order.create(window._newPaypalOrderObj())
       },
 
       onApprove: function (data, actions) {
-        console.log(actions, actions.payment)
         // capture the funds from the transaction
         return actions.order.capture().then(function (details) {
           resolve({
