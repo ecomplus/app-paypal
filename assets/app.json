@@ -177,6 +177,29 @@
       },
       "hide": false
     },
+    "enable_paypal_plus": {
+      "schema": {
+        "type": "boolean",
+        "title": "Habilitar PayPal Plus",
+        "description": "Checkout transaparente via PayPal (necessário aprovação da conta)"
+      }
+    },
+    "disable_spb": {
+      "schema": {
+        "type": "boolean",
+        "title": "Desabilitar PayPal Checkout",
+        "description": "Desabilita opção \"Pagar com PayPal\" para usar apenas PayPal Plus"
+      },
+      "hide": false
+    },
+    "enable_new_spb": {
+      "schema": {
+        "type": "boolean",
+        "title": "Habilitar nova versão SPB",
+        "description": "https://developer.paypal.com/docs/checkout/"
+      },
+      "hide": false
+    },
     "enable_standard_card_fiels": {
       "schema": {
         "type": "boolean",
@@ -184,13 +207,6 @@
         "description": "https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/"
       },
       "hide": false
-    },
-    "enable_paypal_plus": {
-      "schema": {
-        "type": "boolean",
-        "title": "Habilitar PayPal Plus",
-        "description": "Checkout transaparente via PayPal (necessário aprovação da conta)"
-      }
     }
   }
 }
