@@ -43,9 +43,18 @@ module.exports = appSdk => {
       payment_gateways: []
     }
 
-    const addPaymentGateway = (paypalPlus, paypalPayment) => {
+    // preset PayPal payment if needed
+    let paypalPayment
+    const setupPaypalPayment = () => {
+      return createPaypalPayment(paypalEnv, paypalClientId, paypalSecret, parsePaymentBody(params))
+        .then(createdPayment => {
+          paypalPayment = createdPayment
+        })
+    }
+
+    const addPaymentGateway = paypalPlus => {
       // add payment gateway object to response
-      const paymentGateway = newPaymentGateway(params.lang, paypalPlus)
+      const paymentGateway = newPaymentGateway(params.lang, paypalPlus, config.enable_new_spb)
       response.payment_gateways.push(paymentGateway)
 
       // merge configured options to payment gateway object
@@ -121,16 +130,21 @@ module.exports = appSdk => {
       let paypalScript
 
       if (!paypalPlus) {
-        // https://developer.paypal.com/docs/checkout/integrate/
-        paypalScript = 'https://www.paypal.com/sdk/js' +
-          `?client-id=${paypalClientId}` +
-          `&currency=${params.currency_id}` +
-          `&locale=${locales[0]}_${(locales[1] || locales[0]).toUpperCase()}`
-        if (!config.enable_standard_card_fiels) {
-          paypalScript += '&disable-funding=card'
-        }
-        if (config.paypal_debug) {
-          paypalScript += '&debug=true'
+        if (params.lang === 'en_us' || config.enable_new_spb) {
+          // https://developer.paypal.com/docs/checkout/integrate/
+          paypalScript = 'https://www.paypal.com/sdk/js' +
+            `?client-id=${paypalClientId}` +
+            `&currency=${params.currency_id}` +
+            `&locale=${locales[0]}_${(locales[1] || locales[0]).toUpperCase()}`
+          if (!config.enable_standard_card_fiels) {
+            paypalScript += '&disable-funding=card'
+          }
+          if (config.paypal_debug) {
+            paypalScript += '&debug=true'
+          }
+        } else {
+          // https://developer.paypal.com/docs/archive/checkout/integrate/
+          paypalScript = 'https://www.paypalobjects.com/api/checkout.js'
         }
       } else {
         // https://developer.paypal.com
@@ -173,46 +187,44 @@ module.exports = appSdk => {
     }
 
     new Promise((resolve, reject) => {
-      if (config.enable_paypal_plus) {
-        if (params.customer && params.items && !params.is_checkout_confirmation) {
-          // also add payment gateway for PayPal Plus
-          let skip = false
+      if (params.customer && params.items && !params.is_checkout_confirmation) {
+        if (config.enable_paypal_plus || (params.lang !== 'en_us' && !config.enable_new_spb)) {
           // prevent list payments timeout
+          let skip = false
           const timeout = setTimeout(() => {
             skip = true
             resolve()
           }, 8000)
 
-          // start PayPal Plus integration flux creating payment request
-          return createPaypalPayment(paypalEnv, paypalClientId, paypalSecret, parsePaymentBody(params))
-            .then(paypalPayment => {
-              if (!skip) {
-                addPaymentGateway(true, paypalPayment)
-                resolve()
-              }
-            })
+          // start PayPal integration flux creating payment request
+          return setupPaypalPayment()
             .catch(err => {
               const { response } = err
               if (response && response.httpStatusCode === 401) {
                 // invalid PayPal credentials
                 reject(err)
-              } else {
-                // resolve anyway to list payments without PayPal Plus option
+              }
+            })
+            .finally(() => {
+              if (!skip) {
+                clearTimeout(timeout)
                 resolve()
               }
             })
-            .finally(() => clearTimeout(timeout))
         }
-
-        // just to confirm checkout with PayPal Plus
-        addPaymentGateway(true)
       }
       resolve()
     })
 
       .then(() => {
-        // common PayPal SPB payment
-        addPaymentGateway()
+        if (!config.disable_spb || !config.enable_paypal_plus) {
+          // common PayPal SPB payment
+          addPaymentGateway()
+        }
+        if (config.enable_paypal_plus) {
+          // also add payment gateway for PayPal Plus
+          addPaymentGateway(true)
+        }
         // finally send success response
         res.send(response)
       })
