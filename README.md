@@ -1,29 +1,48 @@
 # app-paypal
-E-Com Plus app to integrate PayPal EC &amp; Plus
 
-## Project scope
+[![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### TODO
+E-Com Plus app to integrate PayPal SPB & Plus
 
-* Use this [boilerplate](https://github.com/ecomclub/express-app-boilerplate).
-* Create two endpoints to receive POST for `list_payment` and `create_transaction` following these [schemas](https://github.com/ecomclub/modules-api/tree/master/docs).
-* The app must authenticate it self with paypal through [oauth](https://developer.paypal.com/docs/api/overview/).
-* The app must receive Paypal's notifications always that is a status change in a transaction, and reproduce it on [E-Com Plus Store API](https://developers.e-com.plus/docs/api/#/store/orders/).
+[CHANGELOG](https://github.com/ecomclub/app-paypal/blob/master/CHANGELOG.md)
 
+## About
 
-### HOW TODO
+This application will:
 
-The app use SQLite to persist data. The boilerplate handle some E-Com Plus requests like app's authenticantion callbacks and webhooks. Use the same DB to persist paypal's data, like tokens and other useful info.
+1. Integrate PayPal business account;
+2. Add payment methods and create transactions with
+[Modules API (**List payments & Create transaction**)](https://developers.e-com.plus/modules-api/);
+3. Receive PayPal Webhooks to update transaction status on created orders;
 
-`ecomplus_app_auth`'s table is automaticaly generated and has the necessary info. So the app just can consume [E-Com Plus Store API](https://developers.e-com.plus/docs/api/#/store) resources.
+[App](https://developers.e-com.plus/docs/api/#/store/applications/) `hidden_data`
+will store [PayPal App credentials](https://developer.paypal.com/developer/applications/),
+`data` will store discount, installments and custom PayPal SPB/Plus options.
 
-> list_payment
+`data`/`hidden_data` expected object model is defined (JSON Schema) on
+[app `admin_settings`](https://github.com/ecomclub/app-paypal/blob/master/assets/app.json).
 
-The endpoint has to be enabled to recieve a post. Resquest body must follow the schema bellow.
+It's based on
+[E-Com Plus Express App Boilerplate](https://github.com/ecomclub/express-app-boilerplate),
+application installation and authentication was kept as is
+with original endpoints from boilerplate source:
+
+- [`/bin/web.js`](https://github.com/ecomclub/app-paypal/blob/master/bin/web.js):
+Express web server setup;
+- [`/routes/ecom/auth-callback.js`](https://github.com/ecomclub/app-paypal/blob/master/routes/ecom/auth-callback.js):
+Endpoint for
+[E-Com Plus Authentication Callback](https://developers.e-com.plus/docs/api/#/store/authenticate-app/authenticate-app);
+
+### List payments module endpoint
+
+Additional endpoint was created to handle `list_payments`
+([`/ecom/modules/list-payments`](https://github.com/ecomclub/app-paypal/blob/master/routes/ecom/modules/list-payments.js))
+module, it receives requests from Modules API on stores with this app installed.
+
+It'll receive POST with body _like_:
 
 ```javascript
 {
-  "module": "list_payments",
   "params": {
     "items": [
       {
@@ -47,100 +66,88 @@ The endpoint has to be enabled to recieve a post. Resquest body must follow the 
     "currency_symbol": "R$"
   },
   "application": {
-    "_id": "5d5ffef4f11b5b64ea01cabc",
-    "app_id": 8001,
-    "version": "0.1.0",
-    "modules": {
-      "list_payments": {
-        "endpoint": "https://paypal.ecomplus.biz/ecom/modules/list-payments",
-        "enabled": true
-      }
+    "hidden_data": {
+      "paypal_client_id": "1234",
+      "paypal_secret": "123456"
     },
-    "hidden_data": {},
-    "data": {}
+    "data": {
+      "enable_paypal_plus": true
+    }
   }
 }
 ```
-##### PARAMETERS
-| Property | Description |
-| -------- | ----------- |
-| module | Name of launched module |
-| params | Object with app's information used to list payment options. The object must follow this JSON [Schema] (https://apx-mods.e-com.plus/api/v1/list_payments/schema.json?store_id=100).
-| application | Object with requesting app information.|
 
-Resource's response must follow this JSON [Schema](https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100). Response's displayed options must be setted by a user. Use application's hidden_data property to save this and other settings.
+Then:
 
-Observation:
-- Resource must answer even if there are no users's configuration in app's hidden_data. For this, create a plug and play default configuration.
-- If there is any request without `items` or `amount` parameters, the resource must follow this JSON [Schema](https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100) with `installment_option` and `discount_option` properties, if setted on app's `hidden_data` and  `payment_gateways` property as an empty array `[]`.
-- - -
-> create_transaction
+1. Check for
+[SPB (new version)](https://developer.paypal.com/docs/checkout/),
+[checkout.js](https://developer.paypal.com/docs/archive/checkout/) and/or
+[PayPal Plus](https://developer.paypal.com/docs/integration/paypal-plus/mexico-brazil/paypal-plus-integration-guide-mexico-brazil/) enabled;
 
-The endpoint has to be enabled to recieve a post. Resquest body must follow the schema bellow.
+2. Setup payment methods clients
+([onload expressions](https://github.com/ecomclub/app-paypal/tree/master/assets))
+to run on [Storefront App](https://github.com/ecomclub/storefront-app);
 
-```javascript
-{
-  "module": "create_transaction",
-  "params": {},
-  "application": {
-    "_id": "5d5ffef4f11b5b64ea01cabc",
-    "app_id": 8001,
-    "version": "0.1.0",
-    "modules": {
-      "create_transaction": {
-        "endpoint": "https://paypal.ecomplus.biz/ecom/modules/create-transaction",
-        "enabled": true
-      }
-    },
-    "hidden_data": {},
-    "data": {}
-  }
-}
-```
-Received parameters on create_transaction are the same as on list_payment, differing on `params` property that follows this JSON [Schema](https://apx-mods.e-com.plus/api/v1/create_transaction/schema.json?store_id=100).
+3. Check/apply discount option by payment method;
 
-This resource need to receive modules API POST, create a transaction in Paypal, make transaction's payment and return the transaction as this JSON [Schema](https://apx-mods.e-com.plus/api/v1/create_transaction/response_schema.json?store_id=100).
+4. Create [Payment](https://developer.paypal.com/docs/api/payments/v1/)
+for PayPal Plus or checkout.js if used;
 
-Observation:
-- All needed info to create the transaction and make the payment are sent in `params` property.
-- Module's response must follow this JSON [Schema](https://apx-mods.e-com.plus/api/v1/create_transaction/response_schema.json?store_id=100).
+5. Return response with configured payment methods objects;
 
-> webhook/notifications (paypal)
+> [Full `params` object reference](https://apx-mods.e-com.plus/api/v1/list_payments/schema.json?store_id=100)
+from Modules API docs.
 
-Endpoint must receive paypal's notifications and insert a new entry in it's [order](https://developers.e-com.plus/docs/api/#/store/orders/) `payment_history`.
+> Full `data`/`hidden_data` object referece on
+[app.json](https://github.com/ecomclub/app-paypal/blob/master/assets/app.json) `admin_settings`.
 
+> [Full `response` object reference](https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100)
+from Modules API docs.
 
-- - -
-### General
+### Create transaction module endpoint
 
-- All requisitions sent by E-Com Plus API has a X-Store-Id in it's headers.
--  Endpoints that start with `/ecom/` can access X-Store-id value through `req.storeId` express variable.
--  Use  [ecomplus-app-sdk](https://github.com/ecomclub/ecomplus-app-sdk) lib to make operations, [E-Com Plus Store API](https://developers.e-com.plus/docs/api/#/store/) fetch app credentials through informed storeId.
--  In boilerplate's `lib/store-api/` folder is a `get-config.js` file, that returns app's `hidden_data` and `data` setted configuration.
-- Requisitions on [E-Com Plus Store API](https://developers.e-com.plus/docs/api/#/store/) follow a pattern, if the app dont use ecomplus-app-sdk, [read](https://developers.e-com.plus/docs/reference/store/#authentication-headers) which parameters are needed to make operations.
+Additional endpoint was created to handle `create_transaction`
+([`/ecom/modules/create-transaction`](https://github.com/ecomclub/app-paypal/blob/master/routes/ecom/modules/create-transaction.js))
+module, it receives requests from Modules API to:
 
-### Daemon Proccess
+1. Executed PayPal Payment or read created PayPal Order (new SPB);
+2. Save PayPal Payment/Order ID associated to E-Com Plus Order ID for status synchronization (SQLite3);
+3. Send response to confirm/cancel E-Com Plus order;
 
-The app will be replicated in other servers, so backgroud processes should be called in `bin/local.js` to avoid records duplication or double executation of a service.
+### PayPal Webhooks endpoint
 
-### Logs
+Custom endpoint to handle PayPal Webhooks
+([`/paypal/webhook.js`](https://github.com/ecomclub/app-paypal/blob/master/routes/paypal/webhook.js)):
 
-Use [console-files](https://github.com/leomp12/console-files) lib, which is installed together with boilerplate to save app's error logs
+1. Validate and read PayPal Webhook event;
+2. Read local database (SQLite3) to match Payment/Order ID of respective even
+(saved on [create transaction](#create-transaction-module-endpoint));
+3. Check new transaction status and parse to PayPal enum to E-Com Plus enum;
+4. Update E-Com Plus order adding new `payment_history` with current status;
 
-### Patterns
+## Environment variables sample
 
-- Set to methods variables and endpoints, names that make sense.
-- Use status code correctly in all responses.
-- Always answer, even if with a error message.
-- Use console-files lib to save error logs that may be usefull.
-- Respect [schemas](https://github.com/ecomclub/modules-api/tree/master/docs)! formats, or your answer will be invalid for the module.
+Variable              | Value
+---                   | ---
+`LOGGER_OUTPUT`       | `~/app/log/logger.out`
+`LOGGER_ERRORS`       | `~/app/log/logger.err`
+`LOGGER_FATAL_ERRORS` | `~/app/log/_stderr`
+`PORT`                | `3000`
+`APP_NAME`            | `PayPal`
+`APP_BASE_URI`        | `https://paypal.ecomplus.biz`
+`DB_PATH`             | `~/app/db.sqlite`
+`ECOM_AUTH_DB`        | `~/app/db.sqlite`
+`ECOM_AUTH_UPDATE`    | `enabled`
+`DAEMON_SERVICES`     | `true`
+`PAYPAL_PARTNER_ID`   | `EcomPartnerId`
 
-#### References
+## Production server
 
-E-Com Plus Store API - [Orders](https://developers.e-com.plus/docs/api/#/store/orders/)
+Published at https://paypal.ecomplus.biz
 
-E-Com Plus Store API - [Applications](https://developers.e-com.plus/docs/api/#/store/applications/)
+### Continuous deployment
 
-E-Com Plus Store API - [Procedures](https://developers.e-com.plus/docs/api/#/store/procedures/)
-
-PayPal [API](https://developer.paypal.com/docs/api/overview/)
+When new version is **production ready**,
+[create a new release](https://github.com/ecomclub/app-paypal/releases)
+(or `npm run release`) to run automatic deploy from _master_ branch
+and (re)publish the app.
