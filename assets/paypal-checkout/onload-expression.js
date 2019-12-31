@@ -22,9 +22,6 @@
     // https://developer.paypal.com/docs/archive/checkout/integrate/#how-a-client-integration-works
     window.paypal.Button.render({
       env: window._paypalEnv,
-      client: {
-        [window._paypalEnv]: window._paypalClientId
-      },
 
       payment: function (data, actions) {
         if (window._paypalPaymentId) {
