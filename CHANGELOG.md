@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.20](https://github.com/ecomclub/app-paypal/compare/v0.3.19...v0.3.20) (2019-12-31)
+
+
+### Bug Fixes
+
+* **list-payments:** fix onload expression (; after declared var) ([2feeb0b](https://github.com/ecomclub/app-paypal/commit/2feeb0b3b611e83e5d3240fe33980a35661ede1d))
+
 ### [0.3.19](https://github.com/ecomclub/app-paypal/compare/v0.3.18...v0.3.19) (2019-12-31)
 
 
