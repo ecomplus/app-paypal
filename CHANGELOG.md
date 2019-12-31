@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.15](https://github.com/ecomclub/app-paypal/compare/v0.3.14...v0.3.15) (2019-12-31)
+
+
+### Bug Fixes
+
+* **list-payments:** edit to use payments api for spb (checkout.js) ([#17](https://github.com/ecomclub/app-paypal/issues/17)) ([244a69a](https://github.com/ecomclub/app-paypal/commit/244a69a8f4b7d5dc3e714ad1c4d868dd10230281))
+* **list-payments:** fix applying discount before creating pp payment ([859a82c](https://github.com/ecomclub/app-paypal/commit/859a82c2cc195294663a11659e5b920eafd21a25))
+
 ### [0.3.14](https://github.com/ecomclub/app-paypal/compare/v0.3.13...v0.3.14) (2019-12-30)
 
 
