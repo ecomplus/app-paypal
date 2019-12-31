@@ -145,6 +145,7 @@ module.exports = appSdk => {
       // PayPal Checkout JS client
       const jsClient = paymentGateway.js_client
       const locales = params.lang.split('_')
+      const paypalLocale = `${locales[0]}_${(locales[1] || locales[0]).toUpperCase()}`
       let paypalScript
 
       if (!paypalPlus) {
@@ -153,7 +154,7 @@ module.exports = appSdk => {
           paypalScript = 'https://www.paypal.com/sdk/js' +
             `?client-id=${paypalClientId}` +
             `&currency=${params.currency_id}` +
-            `&locale=${locales[0]}_${(locales[1] || locales[0]).toUpperCase()}`
+            `&locale=${paypalLocale}`
           if (!config.enable_standard_card_fiels) {
             paypalScript += '&disable-funding=card'
           }
@@ -172,7 +173,7 @@ module.exports = appSdk => {
       jsClient.script_uri = paypalScript
 
       // setup global variables on client for onload expression
-      let onloadExpression = `window._paypalEnv="${paypalEnv}";`
+      let onloadExpression = `window._paypalEnv="${paypalEnv}";window._paypalLocale=${paypalLocale}`
       if (paypalPayment) {
         // payment request ID and approval URL for PayPal Plus
         // https://developer.paypal.com/docs/integration/paypal-plus/mexico-brazil/create-a-payment-request/

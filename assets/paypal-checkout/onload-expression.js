@@ -22,6 +22,7 @@
     // https://developer.paypal.com/docs/archive/checkout/integrate/#how-a-client-integration-works
     window.paypal.Button.render({
       env: window._paypalEnv,
+      locale: window._paypalLocale || 'pt_BR',
       style: {
         size: 'responsive',
         color: 'gold',
