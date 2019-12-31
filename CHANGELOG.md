@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.21](https://github.com/ecomclub/app-paypal/compare/v0.3.20...v0.3.21) (2019-12-31)
+
+
+### Bug Fixes
+
+* **paypal-payment:** add `application_context` object ([#16](https://github.com/ecomclub/app-paypal/issues/16)) ([2ef7ee9](https://github.com/ecomclub/app-paypal/commit/2ef7ee99ec309e70f5cf557a4f3ba567edd883a3))
+
 ### [0.3.20](https://github.com/ecomclub/app-paypal/compare/v0.3.19...v0.3.20) (2019-12-31)
 
 
