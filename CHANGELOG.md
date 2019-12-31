@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/ecomclub/app-paypal/compare/v0.3.21...v1.0.0) (2019-12-31)
+
 ### [0.3.21](https://github.com/ecomclub/app-paypal/compare/v0.3.20...v0.3.21) (2019-12-31)
 
 
