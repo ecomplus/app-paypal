@@ -173,7 +173,7 @@ module.exports = appSdk => {
       jsClient.script_uri = paypalScript
 
       // setup global variables on client for onload expression
-      let onloadExpression = `window._paypalEnv="${paypalEnv}";window._paypalLocale="${paypalLocale}"`
+      let onloadExpression = `window._paypalEnv="${paypalEnv}";window._paypalLocale="${paypalLocale}";`
       if (paypalPayment) {
         // payment request ID and approval URL for PayPal Plus
         // https://developer.paypal.com/docs/integration/paypal-plus/mexico-brazil/create-a-payment-request/
