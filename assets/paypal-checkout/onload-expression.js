@@ -22,6 +22,11 @@
     // https://developer.paypal.com/docs/archive/checkout/integrate/#how-a-client-integration-works
     window.paypal.Button.render({
       env: window._paypalEnv,
+      style: {
+        size: 'responsive',
+        color: 'gold',
+        shape: 'pill'
+      },
 
       payment: function (data, actions) {
         if (window._paypalPaymentId) {
