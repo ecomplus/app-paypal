@@ -32,15 +32,59 @@ module.exports = appSdk => {
       // set PT-BR as default
       params.lang = 'pt_br'
     }
-    let totalValue
-    if (params.amount) {
-      totalValue = params.amount.total
-    }
+    const { amount } = params
 
     // start mounting response body
     // https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100
     const response = {
       payment_gateways: []
+    }
+
+    // calculate discount value
+    const { discount } = config
+    if (discount && discount.value > 0) {
+      if (discount.apply_at !== 'freight') {
+        // default discount option
+        const { value } = discount
+        response.discount_option = {
+          label: config.discount_option_label,
+          value
+        }
+        // specify the discount type and min amount is optional
+        ;['type', 'min_amount'].forEach(prop => {
+          if (discount[prop]) {
+            response.discount_option[prop] = discount[prop]
+          }
+        })
+      }
+
+      if (discount.min_amount && amount && amount.total) {
+        // check amount value to apply discount
+        if (amount.total < discount.min_amount) {
+          discount.value = 0
+        } else {
+          delete discount.min_amount
+
+          // fix local amount object
+          const maxDiscount = amount[discount.apply_at || 'subtotal']
+          let discountValue
+          if (discount.type === 'percentage') {
+            discountValue = maxDiscount * discount.value / 100
+          } else {
+            discountValue = discount.value
+            if (discountValue > maxDiscount) {
+              discountValue = maxDiscount
+            }
+          }
+          if (discountValue > 0) {
+            amount.discount = (amount.discount || 0) + discountValue
+            amount.total -= discountValue
+            if (amount.total < 0) {
+              amount.total = 0
+            }
+          }
+        }
+      }
     }
 
     // preset PayPal payment if needed
@@ -65,36 +109,10 @@ module.exports = appSdk => {
       })
 
       // check available discount by payment method
-      const paymentMethod = paymentGateway.payment_method
-      if (
-        config.discount &&
-        (!config.discount_payment_method || config.discount_payment_method === paymentMethod.code)
-      ) {
-        paymentGateway.discount = config.discount
-      }
-
-      const { discount } = paymentGateway
       if (discount && discount.value > 0) {
-        if (discount.apply_at !== 'freight') {
-          // default discount option
-          const { value } = discount
-          const label = config.discount_option_label || paymentGateway.label
-          response.discount_option = { label, value }
-          // specify the discount type and min amount is optional
-          ;['type', 'min_amount'].forEach(prop => {
-            if (discount[prop]) {
-              response.discount_option[prop] = discount[prop]
-            }
-          })
-        }
-
-        if (discount.min_amount) {
-          // check amount value to apply discount
-          if (params.amount && params.amount.total < discount.min_amount) {
-            delete paymentGateway.discount
-          } else {
-            delete discount.min_amount
-          }
+        paymentGateway.discount = discount
+        if (response.discount_option && !response.discount_option.label) {
+          response.discount_option.label = paymentGateway.label
         }
       }
 
@@ -103,13 +121,13 @@ module.exports = appSdk => {
         // default configured installments option
         response.installments_option = installmentsOption
 
-        if (totalValue) {
+        if (amount.total) {
           // map to payment gateway installments
           paymentGateway.installment_options = []
           const minInstallment = installmentsOption.min_installment || 5
           for (let number = 2; number <= installmentsOption.max_number.length; number++) {
             // check installment value and configured minimum
-            const value = totalValue / number
+            const value = amount.total / number
             if (value >= minInstallment) {
               paymentGateway.installment_options.push({
                 number,
@@ -174,10 +192,10 @@ module.exports = appSdk => {
 
       // add order amount on JS expression
       const paypalOrder = {}
-      if (totalValue) {
+      if (amount.total) {
         paypalOrder.purchase_units = [{
           amount: {
-            value: totalValue.toString()
+            value: amount.total.toString()
           }
         }]
       }
