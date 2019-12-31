@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.16](https://github.com/ecomclub/app-paypal/compare/v0.3.15...v0.3.16) (2019-12-31)
+
+
+### Bug Fixes
+
+* **chk-client:** remove _paypalClientId and client object ([31d6c69](https://github.com/ecomclub/app-paypal/commit/31d6c69a9a111e09e012d285930c442df9abbd83))
+
 ### [0.3.15](https://github.com/ecomclub/app-paypal/compare/v0.3.14...v0.3.15) (2019-12-31)
 
 
