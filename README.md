@@ -117,7 +117,7 @@ module, it receives requests from Modules API to:
 ### PayPal Webhooks endpoint
 
 Custom endpoint to handle PayPal Webhooks
-([`/paypal/webhook.js`](https://github.com/ecomclub/app-paypal/blob/master/routes/paypal/webhook.js)):
+([`/paypal/webhook`](https://github.com/ecomclub/app-paypal/blob/master/routes/paypal/webhook.js)):
 
 1. Validate and read PayPal Webhook event;
 2. Read local database (SQLite3) to match Payment/Order ID of respective even
