@@ -3,7 +3,7 @@
   "state": "active",
   "title": "Paypal",
   "slug": "paypal",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "external",
   "authentication": true,
   "auth_callback_uri": "https://paypal.ecomplus.biz/ecom/auth-callback",
@@ -101,18 +101,6 @@
         },
         "title": "Desconto",
         "description": "Desconto a ser aplicado para pagamentos via PayPal"
-      },
-      "hide": false
-    },
-    "discount_payment_method": {
-      "schema": {
-        "type": "string",
-        "enum": [
-          "balance_on_intermediary",
-          "credit_card"
-        ],
-        "title": "Desconto disponível para",
-        "description": "Restringir desconto por método de pagamento (PayPal ou cartão de crédito)"
       },
       "hide": false
     },
