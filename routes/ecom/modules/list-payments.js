@@ -32,7 +32,7 @@ module.exports = appSdk => {
       // set PT-BR as default
       params.lang = 'pt_br'
     }
-    const { amount } = params
+    const amount = params.amount || {}
 
     // start mounting response body
     // https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100
@@ -58,7 +58,7 @@ module.exports = appSdk => {
         })
       }
 
-      if (discount.min_amount && amount && amount.total) {
+      if (discount.min_amount && amount.total) {
         // check amount value to apply discount
         if (amount.total < discount.min_amount) {
           discount.value = 0
