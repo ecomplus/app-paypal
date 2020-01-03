@@ -99,7 +99,7 @@ module.exports = appSdk => {
     const addPaymentGateway = paypalPlus => {
       // add payment gateway object to response
       const paymentGateway = newPaymentGateway(params.lang, paypalPlus, config.enable_new_spb)
-      response.payment_gateways.push(paymentGateway)
+      response.payment_gateways.unshift(paymentGateway)
 
       // merge configured options to payment gateway object
       ;['label', 'text', 'icon'].forEach(prop => {
