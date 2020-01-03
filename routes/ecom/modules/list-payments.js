@@ -236,13 +236,13 @@ module.exports = appSdk => {
     })
 
       .then(() => {
-        if (config.enable_paypal_plus) {
-          // also add payment gateway for PayPal Plus
-          addPaymentGateway(true)
-        }
         if (!config.disable_spb || !config.enable_paypal_plus) {
           // common PayPal SPB payment
           addPaymentGateway()
+        }
+        if (config.enable_paypal_plus) {
+          // also add payment gateway for PayPal Plus
+          addPaymentGateway(true)
         }
         // finally send success response
         res.send(response)
