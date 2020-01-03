@@ -21,7 +21,7 @@
   window._paypalApprove = new Promise(function (resolve, reject) {
     // https://developer.paypal.com/docs/archive/checkout/integrate/#how-a-client-integration-works
     window.paypal.Button.render({
-      env: window._paypalEnv,
+      env: window._paypalEnv !== 'sandbox' ? 'production' : window._paypalEnv,
       locale: window._paypalLocale || 'pt_BR',
       style: {
         size: 'responsive',
