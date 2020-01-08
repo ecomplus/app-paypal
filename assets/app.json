@@ -177,7 +177,7 @@
       "schema": {
         "type": "string",
         "maxLength": 50,
-        "title": "Rótulo",
+        "title": "Rótulo (PayPal Plus)",
         "description": "Rótulo para pagamento transparente com PayPal Plus",
         "default": "Cartão de crédito"
       },
