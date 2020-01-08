@@ -107,6 +107,9 @@ module.exports = appSdk => {
           paymentGateway[prop] = config[prop]
         }
       })
+      if (paypalPlus && config.ppp_label) {
+        paymentGateway.label = config.ppp_label
+      }
 
       // check available discount by payment method
       if (discount && discount.value > 0) {
