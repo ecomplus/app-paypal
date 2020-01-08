@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/ecomclub/app-paypal/compare/v1.0.7...v1.1.0) (2020-01-08)
+
+
+### Features
+
+* **list-payments:** optional custom label for paypal plus ([8342aee](https://github.com/ecomclub/app-paypal/commit/8342aeeada39d7fda8daa81ddb7b3b94b663bd42))
+
 ### [1.0.7](https://github.com/ecomclub/app-paypal/compare/v1.0.6...v1.0.7) (2020-01-08)
 
 
