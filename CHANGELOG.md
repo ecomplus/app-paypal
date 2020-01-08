@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.7](https://github.com/ecomclub/app-paypal/compare/v1.0.6...v1.0.7) (2020-01-08)
+
+
+### Bug Fixes
+
+* **database:** update (upsert) when transaction code confict ([#20](https://github.com/ecomclub/app-paypal/issues/20)) ([dcef7ae](https://github.com/ecomclub/app-paypal/commit/dcef7ae3c82fae0995815a7d92a24c00c7e58480))
+* **parse-payment:** fix preseting default order currency ([8350fd3](https://github.com/ecomclub/app-paypal/commit/8350fd37c11b79cf71e967aea073db7faffa4a0e))
+* **parse-payment:** prevent error with amount zero ([0259e11](https://github.com/ecomclub/app-paypal/commit/0259e11cd70508dc6e9d6b6afb1356dcf19e3d83))
+
 ### [1.0.6](https://github.com/ecomclub/app-paypal/compare/v1.0.5...v1.0.6) (2020-01-03)
 
 ### [1.0.5](https://github.com/ecomclub/app-paypal/compare/v1.0.4...v1.0.5) (2020-01-03)
