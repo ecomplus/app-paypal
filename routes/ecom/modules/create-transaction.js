@@ -132,6 +132,23 @@ module.exports = appSdk => {
               transaction.intermediator.transaction_reference = paymentReference
             }
 
+            if (params.amount.total && params.amount.total !== amount) {
+              // save received amount on custom fields for debug
+              transaction.custom_fields = transaction.custom_fields || []
+              for (const amountField in params.amount) {
+                if (typeof params.amount[amountField] === 'number') {
+                  if (transaction.custom_fields.length >= 10) {
+                    break
+                  } else {
+                    transaction.custom_fields.push({
+                      field: `pr_amount_${amountField}`,
+                      value: params.amount[amountField].toString()
+                    })
+                  }
+                }
+              }
+            }
+
             if (transactionCode) {
               // save to order database
               return save(transactionCode, storeId, orderId)
