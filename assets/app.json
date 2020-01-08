@@ -3,7 +3,7 @@
   "state": "active",
   "title": "PayPal",
   "slug": "paypal",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "external",
   "authentication": true,
   "auth_callback_uri": "https://paypal.ecomplus.biz/ecom/auth-callback",
@@ -33,7 +33,7 @@
         "maxLength": 50,
         "title": "Rótulo",
         "description": "Nome da forma de pagamento exibido para os clientes",
-        "default": "Cartão de crédito"
+        "default": "Pagar com PayPal"
       },
       "hide": false
     },
@@ -169,8 +169,19 @@
       "schema": {
         "type": "boolean",
         "title": "Habilitar PayPal Plus",
-        "description": "Checkout transaparente via PayPal (necessário aprovação da conta)"
-      }
+        "description": "Checkout transparente via PayPal (necessário aprovação da conta)"
+      },
+      "hide": false
+    },
+    "ppp_label": {
+      "schema": {
+        "type": "string",
+        "maxLength": 50,
+        "title": "Rótulo",
+        "description": "Rótulo para pagamento transparente com PayPal Plus",
+        "default": "Cartão de crédito"
+      },
+      "hide": false
     },
     "disable_spb": {
       "schema": {
