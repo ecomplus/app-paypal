@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/ecomclub/app-paypal/compare/v1.1.2...v1.1.3) (2020-01-09)
+
+
+### Bug Fixes
+
+* **list-payments:** also apply discount when min amount not specified ([e797a28](https://github.com/ecomclub/app-paypal/commit/e797a28b134a446fcbc89e0f9c181623cb0f77b9))
+
 ### [1.1.2](https://github.com/ecomclub/app-paypal/compare/v1.1.1...v1.1.2) (2020-01-09)
 
 ### [1.1.1](https://github.com/ecomclub/app-paypal/compare/v1.1.0...v1.1.1) (2020-01-09)
