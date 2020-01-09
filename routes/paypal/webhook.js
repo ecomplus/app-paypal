@@ -130,6 +130,7 @@ module.exports = appSdk => {
       .catch(err => {
         const { name, message } = err
         if (name === CLIENT_ERR || name === 'TransactionCodeNotFound') {
+          logger.log(`Skip webhook ${body.id}`)
           // return response with client error code
           res.status(400)
           res.send({ name, message })
