@@ -58,7 +58,7 @@ module.exports = appSdk => {
         })
       }
 
-      if (discount.min_amount && amount.total) {
+      if (amount.total) {
         // check amount value to apply discount
         if (amount.total < discount.min_amount) {
           discount.value = 0
