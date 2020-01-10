@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/ecomclub/app-paypal/compare/v1.1.3...v1.1.4) (2020-01-10)
+
+
+### Bug Fixes
+
+* **paypal-webhook:** try resource.sale_id before resource.id ([75ee089](https://github.com/ecomclub/app-paypal/commit/75ee0894f6080a50e800f3fe57823401dfd11c9d))
+
 ### [1.1.3](https://github.com/ecomclub/app-paypal/compare/v1.1.2...v1.1.3) (2020-01-09)
 
 
