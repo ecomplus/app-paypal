@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.5](https://github.com/ecomclub/app-paypal/compare/v1.1.4...v1.1.5) (2020-01-10)
+
+
+### Bug Fixes
+
+* **paypal-webhook:** fix parsing event type to flags ([214972c](https://github.com/ecomclub/app-paypal/commit/214972c4dc4174a840ba751537ee1bbbff82ca25))
+
 ### [1.1.4](https://github.com/ecomclub/app-paypal/compare/v1.1.3...v1.1.4) (2020-01-10)
 
 
