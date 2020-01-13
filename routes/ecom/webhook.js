@@ -24,15 +24,9 @@ module.exports = appSdk => {
 
     // check if PayPal app credentials were edited
     if (trigger.body && (trigger.body.paypal_client_id || trigger.body.paypal_secret)) {
-      new Promise((resolve, reject) => {
-        if (!trigger.body.paypal_client_id || !trigger.body.paypal_secret) {
-          // get app configured options
-          // including hidden (authenticated) data
-          getConfig({ appSdk, storeId }, true).then(resolve).catch(reject)
-        } else {
-          resolve(trigger.body)
-        }
-      })
+      // get app configured options
+      // including hidden (authenticated) data
+      getConfig({ appSdk, storeId }, true)
 
         .then(configObj => {
           // check both PayPal app credentials
