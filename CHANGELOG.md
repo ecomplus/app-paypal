@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ecomclub/app-paypal/compare/v1.1.5...v1.2.0) (2020-01-13)
+
+
+### Features
+
+* **create-transaction:** update PayPal Payment to add order number ([dff8f9e](https://github.com/ecomclub/app-paypal/commit/dff8f9e298ac5dc00db9661ee0b7649350211600))
+
+
+### Bug Fixes
+
+* **partner-id:** fix paypal plus parter id header on payment execution ([2fa568d](https://github.com/ecomclub/app-paypal/commit/2fa568d07a655725748edb0cdc7a08bd21882962))
+* **ppp-client:** set payerTaxIdType on paypal plus params object ([4c54fd2](https://github.com/ecomclub/app-paypal/commit/4c54fd2a41618ca3e818a15ab4314738e88fa227))
+
 ### [1.1.5](https://github.com/ecomclub/app-paypal/compare/v1.1.4...v1.1.5) (2020-01-10)
 
 
