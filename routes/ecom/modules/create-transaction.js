@@ -36,9 +36,18 @@ module.exports = appSdk => {
             // execute payment
             // https://developer.paypal.com
             // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
-            executePaypalPayment(paypalEnv, paypalClientId, paypalSecret, paypalPaymentId, {
+            const executePaymentBody = {
               payer_id: paypalPayerId
-            })
+            }
+            const paypalPlus = Boolean(params.payment_method && params.payment_method.code === 'credit_card')
+            executePaypalPayment(
+              paypalEnv,
+              paypalClientId,
+              paypalSecret,
+              paypalPaymentId,
+              executePaymentBody,
+              paypalPlus
+            )
               .then(paypalPayment => resolve({ paypalOrderId, paypalPayment }))
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
