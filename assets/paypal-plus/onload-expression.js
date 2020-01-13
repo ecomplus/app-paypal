@@ -34,6 +34,7 @@
       if (customer) {
         pppParams.payerEmail = customer.main_email
         pppParams.payerTaxId = customer.doc_number
+        pppParams.payerTaxIdType = customer.registry_type === 'j' ? 'BR_CNPJ' : 'BR_CPF'
         pppParams.country = customer.doc_country || 'BR'
         if (pppParams.country === 'BR') {
           pppParams.language = 'pt_BR'
