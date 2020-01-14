@@ -9,7 +9,7 @@ const executePaypalPayment = require(process.cwd() + '/lib/paypal-api/execute-pa
 // edit PayPal payment data
 const editPaypalPayment = require(process.cwd() + '/lib/paypal-api/edit-payment')
 // SQLite3 database abstracted
-const { save } = require(process.cwd() + '/lib/database')
+const { get, save } = require(process.cwd() + '/lib/database')
 
 module.exports = appSdk => {
   return (req, res) => {
@@ -179,12 +179,27 @@ module.exports = appSdk => {
             }
 
             if (transactionCode) {
-              // save to order database
-              return save(transactionCode, storeId, orderId)
-                .then(() => {
-                  // all done
-                  // send response and finish process
-                  res.send({ transaction })
+              // save to order database if not already saved
+              return get(transactionCode)
+                .then(data => {
+                  if (!data) {
+                    throw new Error('Empty databse row ?')
+                  }
+                  // duplicated order ?
+                  res.status(400).send({
+                    error: 'TRANSACTION_CODE_DUPLICATED',
+                    message: 'Ignoring PayPal order ID already fulfilled'
+                  })
+                })
+
+                .catch(() => {
+                  // save new transaction code
+                  save(transactionCode, storeId, orderId)
+                    .then(() => {
+                      // all done
+                      // send response and finish process
+                      res.send({ transaction })
+                    })
                 })
             } else {
               // send response with additional notes
