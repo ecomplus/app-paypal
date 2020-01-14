@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/ecomclub/app-paypal/compare/v1.2.1...v1.2.2) (2020-01-14)
+
+
+### Bug Fixes
+
+* **create-transaction:** preventing duplicated transaction code ([347b3b0](https://github.com/ecomclub/app-paypal/commit/347b3b00256350805d302c003363afe470f8aa13))
+* **paypal-payment-body:** fix handling amount total 0 to prevent error ([acc0d4f](https://github.com/ecomclub/app-paypal/commit/acc0d4fff895380de67e255b4ca7a3de864b93bf))
+
 ### [1.2.1](https://github.com/ecomclub/app-paypal/compare/v1.2.0...v1.2.1) (2020-01-13)
 
 
