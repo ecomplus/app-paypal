@@ -17,6 +17,7 @@ module.exports = appSdk => {
     const paypalClientId = config.paypal_client_id
     const paypalSecret = config.paypal_secret
     const paypalEnv = config.paypal_sandbox ? 'sandbox' : 'live'
+    const enableNewSpb = Boolean(params.lang === 'en_us' || config.enable_new_spb)
 
     if (!paypalClientId) {
       // must have configured PayPal app ID and secret
@@ -105,7 +106,7 @@ module.exports = appSdk => {
 
     const addPaymentGateway = paypalPlus => {
       // add payment gateway object to response
-      const paymentGateway = newPaymentGateway(params.lang, paypalPlus, config.enable_new_spb)
+      const paymentGateway = newPaymentGateway(params.lang, paypalPlus, enableNewSpb)
       if (params.payment_method && params.payment_method.code !== paymentGateway.payment_method.code) {
         return
       }
@@ -162,7 +163,7 @@ module.exports = appSdk => {
       let paypalScript
 
       if (!paypalPlus) {
-        if (params.lang === 'en_us' || config.enable_new_spb) {
+        if (enableNewSpb) {
           // https://developer.paypal.com/docs/checkout/integrate/
           paypalScript = 'https://www.paypal.com/sdk/js' +
             `?client-id=${paypalClientId}` +
@@ -185,37 +186,43 @@ module.exports = appSdk => {
       }
       jsClient.script_uri = paypalScript
 
-      // setup global variables on client for onload expression
-      let onloadExpression = `window._paypalEnv="${paypalEnv}";window._paypalLocale="${paypalLocale}";`
-      if (paypalPayment) {
-        // payment request ID and approval URL for PayPal Plus
-        // https://developer.paypal.com/docs/integration/paypal-plus/mexico-brazil/create-a-payment-request/
-        onloadExpression += `window._paypalPaymentId="${paypalPayment.id}";`
-        if (Array.isArray(paypalPayment.links)) {
-          const linkObj = paypalPayment.links.find(({ rel }) => rel === 'approval_url')
-          if (linkObj) {
-            onloadExpression += `window._paypalApprovalUrl="${linkObj.href}";`
+      if (!paypalPayment && (paypalPlus || !enableNewSpb) && params.can_fetch_when_selected) {
+        // refetch for JS Client with onload expression (and Payment ID) when payment selected
+        paymentGateway.fetch_when_selected = true
+        delete jsClient.onload_expression
+      } else {
+        // setup global variables on client for onload expression
+        let onloadExpression = `window._paypalEnv="${paypalEnv}";window._paypalLocale="${paypalLocale}";`
+        if (paypalPayment) {
+          // payment request ID and approval URL for PayPal Plus
+          // https://developer.paypal.com/docs/integration/paypal-plus/mexico-brazil/create-a-payment-request/
+          onloadExpression += `window._paypalPaymentId="${paypalPayment.id}";`
+          if (Array.isArray(paypalPayment.links)) {
+            const linkObj = paypalPayment.links.find(({ rel }) => rel === 'approval_url')
+            if (linkObj) {
+              onloadExpression += `window._paypalApprovalUrl="${linkObj.href}";`
+            }
           }
         }
-      }
-      if (config.enable_standard_card_fiels) {
-        // https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/
-        // standard card fields is disabled by default due to bugs (BR only ?)
-        onloadExpression += 'window._paypalStCardFields=true;'
-      }
+        if (config.enable_standard_card_fiels) {
+          // https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/
+          // standard card fields is disabled by default due to bugs (BR only ?)
+          onloadExpression += 'window._paypalStCardFields=true;'
+        }
 
-      // add order amount on JS expression
-      const paypalOrder = {}
-      if (amount.total) {
-        paypalOrder.purchase_units = [{
-          amount: {
-            value: amount.total.toString()
-          }
-        }]
+        // add order amount on JS expression
+        const paypalOrder = {}
+        if (amount.total) {
+          paypalOrder.purchase_units = [{
+            amount: {
+              value: amount.total.toString()
+            }
+          }]
+        }
+        jsClient.onload_expression = onloadExpression +
+          `window._paypalOrderObj=${JSON.stringify(paypalOrder)};` +
+          jsClient.onload_expression
       }
-      jsClient.onload_expression = onloadExpression +
-        `window._paypalOrderObj=${JSON.stringify(paypalOrder)};` +
-        jsClient.onload_expression
     }
 
     new Promise((resolve, reject) => {
@@ -223,7 +230,7 @@ module.exports = appSdk => {
         params.customer && params.items && !params.is_checkout_confirmation &&
         (params.payment_method || !params.can_fetch_when_selected)
       ) {
-        if (config.enable_paypal_plus || (params.lang !== 'en_us' && !config.enable_new_spb)) {
+        if (config.enable_paypal_plus || !enableNewSpb) {
           // prevent list payments timeout
           let skip = false
           const timeout = setTimeout(() => {
