@@ -90,7 +90,14 @@ module.exports = appSdk => {
     // preset PayPal payment if needed
     let paypalPayment
     const setupPaypalPayment = () => {
-      return createPaypalPayment(paypalEnv, paypalClientId, paypalSecret, parsePaymentBody(params))
+      const paypalPlus = Boolean(params.payment_method && params.payment_method.code === 'credit_card')
+      return createPaypalPayment(
+        paypalEnv,
+        paypalClientId,
+        paypalSecret,
+        parsePaymentBody(params),
+        paypalPlus
+      )
         .then(createdPayment => {
           paypalPayment = createdPayment
         })
@@ -99,6 +106,9 @@ module.exports = appSdk => {
     const addPaymentGateway = paypalPlus => {
       // add payment gateway object to response
       const paymentGateway = newPaymentGateway(params.lang, paypalPlus, config.enable_new_spb)
+      if (params.payment_method && params.payment_method.code !== paymentGateway.payment_method.code) {
+        return
+      }
       response.payment_gateways.unshift(paymentGateway)
 
       // merge configured options to payment gateway object
@@ -209,7 +219,10 @@ module.exports = appSdk => {
     }
 
     new Promise((resolve, reject) => {
-      if (params.customer && params.items && !params.is_checkout_confirmation) {
+      if (
+        params.customer && params.items && !params.is_checkout_confirmation &&
+        (params.payment_method || !params.can_fetch_when_selected)
+      ) {
         if (config.enable_paypal_plus || (params.lang !== 'en_us' && !config.enable_new_spb)) {
           // prevent list payments timeout
           let skip = false
