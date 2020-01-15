@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/ecomclub/app-paypal/compare/v1.2.3...v1.3.0) (2020-01-15)
+
+
+### Features
+
+* **list-payments:** support creating payment after payment selection ([94bb907](https://github.com/ecomclub/app-paypal/commit/94bb9077fb2264691c6c3e695a501aaea93722b3))
+
 ### [1.2.3](https://github.com/ecomclub/app-paypal/compare/v1.2.2...v1.2.3) (2020-01-15)
 
 
