@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/ecomclub/app-paypal/compare/v1.3.0...v1.3.1) (2020-01-15)
+
+
+### Bug Fixes
+
+* **list-payments:** set fetch_when_selected when possible (refetch) ([a1d1059](https://github.com/ecomclub/app-paypal/commit/a1d105967deb3c0821bee15c0ef6e1cbd17bb5a9))
+
 ## [1.3.0](https://github.com/ecomclub/app-paypal/compare/v1.2.3...v1.3.0) (2020-01-15)
 
 
