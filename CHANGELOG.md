@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/ecomclub/app-paypal/compare/v1.2.2...v1.2.3) (2020-01-15)
+
+
+### Bug Fixes
+
+* **paypal-payment:** setting random invoice number on body when creating ([dd134c6](https://github.com/ecomclub/app-paypal/commit/dd134c6cd0f512429a460afa7e7d540a118c861c))
+
 ### [1.2.2](https://github.com/ecomclub/app-paypal/compare/v1.2.1...v1.2.2) (2020-01-14)
 
 
