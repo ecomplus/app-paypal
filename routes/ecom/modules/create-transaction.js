@@ -6,8 +6,6 @@ const logger = require('console-files')
 const getPaypalOrder = require(process.cwd() + '/lib/paypal-api/get-order')
 // execute PayPal payment request
 const executePaypalPayment = require(process.cwd() + '/lib/paypal-api/execute-payment')
-// edit PayPal payment data
-const editPaypalPayment = require(process.cwd() + '/lib/paypal-api/edit-payment')
 // SQLite3 database abstracted
 const { get, save } = require(process.cwd() + '/lib/database')
 
@@ -51,23 +49,7 @@ module.exports = appSdk => {
               executePaymentBody,
               paypalPlus
             )
-              .then(paypalPayment => {
-                if (params.order_number) {
-                  // try to update PayPal Payment to add order number
-                  try {
-                    editPaypalPayment(
-                      paypalEnv,
-                      paypalClientId,
-                      paypalSecret,
-                      paypalPaymentId,
-                      {
-                        invoice_number: params.order_number.toString()
-                      }
-                    )
-                  } catch (e) { }
-                }
-                resolve({ paypalOrderId, paypalPayment })
-              })
+              .then(paypalPayment => resolve({ paypalOrderId, paypalPayment }))
               .catch(reject)
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
