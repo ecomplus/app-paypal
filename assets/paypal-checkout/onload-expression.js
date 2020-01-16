@@ -37,13 +37,11 @@
       },
 
       onAuthorize: function (data, actions) {
-        return actions.payment.execute().then(function () {
-          resolve({
-            intermediator_buyer_id: data.payerID,
-            open_payment_id: window._paypalPaymentId +
-              '/' + data.paymentID +
-              '/' + window._paypalInvoiceNumber
-          })
+        return resolve({
+          intermediator_buyer_id: data.payerID,
+          open_payment_id: window._paypalPaymentId +
+            '/' + data.paymentID +
+            '/' + window._paypalInvoiceNumber
         })
       }
     }, '#paypal-button-container')
