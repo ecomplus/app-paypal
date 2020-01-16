@@ -197,7 +197,7 @@ module.exports = appSdk => {
           // payment request ID and approval URL for PayPal Plus
           // https://developer.paypal.com/docs/integration/paypal-plus/mexico-brazil/create-a-payment-request/
           onloadExpression += `window._paypalPaymentId="${paypalPayment.id}";` +
-            `window._paypalInvoiceNumber="${paypalPayment.invoice_number}";`
+            `window._paypalInvoiceNumber="${paypalPayment.transactions[0].invoice_number}";`
           if (Array.isArray(paypalPayment.links)) {
             const linkObj = paypalPayment.links.find(({ rel }) => rel === 'approval_url')
             if (linkObj) {
