@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/ecomclub/app-paypal/compare/v1.4.1...v1.5.0) (2020-01-16)
+
+
+### Features
+
+* **create-transaction:** save paypal selected installments option ([1445858](https://github.com/ecomclub/app-paypal/commit/14458581f921ff41c3016bd280020c34a2451df4))
+
+
+### Bug Fixes
+
+* **paypal-clients:** persist clients (5mins) to prevent api block ([#15](https://github.com/ecomclub/app-paypal/issues/15)) ([ca0d7b4](https://github.com/ecomclub/app-paypal/commit/ca0d7b458c6dfd7d37c61751c3fd195e0efe665d))
+
 ### [1.4.1](https://github.com/ecomclub/app-paypal/compare/v1.4.0...v1.4.1) (2020-01-16)
 
 
