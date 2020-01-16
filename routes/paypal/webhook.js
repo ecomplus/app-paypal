@@ -24,7 +24,7 @@ module.exports = appSdk => {
     // https://developer.paypal.com/docs/integration/direct/webhooks/notification-messages/
     const transactionCode = body && body.resource &&
       (body.resource.sale_id || body.resource.id)
-    logger.log(`PayPal webhook ${body.id}: ${transactionCode}`)
+    // logger.log(`PayPal webhook ${body.id}: ${transactionCode}`)
     if (!transactionCode) {
       return res.sendStatus(400)
     }
@@ -69,7 +69,7 @@ module.exports = appSdk => {
         // parse PayPal event type to E-Com Plus financial status
         let status
         const paypalEventType = paypalEvent.event_type
-        logger.log(`PayPal event type ${paypalEventType}`)
+        logger.log(`PayPal event type ${paypalEventType} for ${transactionCode}`)
 
         switch (paypalEventType) {
           case 'PAYMENT.AUTHORIZATION.CREATED':
