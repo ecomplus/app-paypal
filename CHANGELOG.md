@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/ecomclub/app-paypal/compare/v1.5.0...v1.5.1) (2020-01-16)
+
+
+### Bug Fixes
+
+* **paypal-client:** setup stored client key concating id and ppp bol ([e410e52](https://github.com/ecomclub/app-paypal/commit/e410e52542775c747374640a5a24c680ce8edbf0))
+
 ## [1.5.0](https://github.com/ecomclub/app-paypal/compare/v1.4.1...v1.5.0) (2020-01-16)
 
 
