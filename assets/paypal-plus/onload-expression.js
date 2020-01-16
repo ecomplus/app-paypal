@@ -15,7 +15,9 @@
             token: rememberedCards || ''
           },
           intermediator_buyer_id: payerId,
-          open_payment_id: window._paypalPaymentId + '/' + paymentId
+          open_payment_id: window._paypalPaymentId +
+            '/' + paymentId +
+            '/' + window._paypalInvoiceNumber
         })
       },
       onError: function (err) {

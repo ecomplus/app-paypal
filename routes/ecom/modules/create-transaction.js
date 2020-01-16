@@ -31,7 +31,11 @@ module.exports = appSdk => {
       new Promise((resolve, reject) => {
         const paypalPayerId = params.intermediator_buyer_id
         if (paypalPayerId) {
-          const [paypalPaymentId, paypalOrderId] = params.open_payment_id.split('/')
+          const [
+            paypalPaymentId,
+            paypalOrderId,
+            paypalInvoiceNumber
+          ] = params.open_payment_id.split('/')
           if (paypalPaymentId && paypalOrderId) {
             // execute payment
             // https://developer.paypal.com
@@ -49,7 +53,7 @@ module.exports = appSdk => {
               executePaymentBody,
               paypalPlus
             )
-              .then(paypalPayment => resolve({ paypalOrderId, paypalPayment }))
+              .then(paypalPayment => resolve({ paypalOrderId, paypalPayment, paypalInvoiceNumber }))
               .catch(reject)
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
@@ -61,7 +65,7 @@ module.exports = appSdk => {
         }
       })
 
-        .then(({ paypalOrderId, paypalPayment }) => {
+        .then(({ paypalOrderId, paypalPayment, paypalInvoiceNumber }) => {
           // debug new order
           logger.log(`New PayPal order ${paypalOrderId} for store #${storeId} /${orderId}`)
 
@@ -71,6 +75,7 @@ module.exports = appSdk => {
             return getPaypalOrder(paypalEnv, paypalClientId, paypalSecret, paypalOrderId)
           } else {
             return {
+              invoice_number: paypalInvoiceNumber,
               ...paypalPayment,
               reference_id: paypalOrderId
             }
@@ -139,8 +144,9 @@ module.exports = appSdk => {
             if (paymentLink) {
               transaction.payment_link = paymentLink
             }
-            if (paymentReference) {
-              transaction.intermediator.transaction_reference = paymentReference
+            const transactionReference = paypalOrder.invoice_number || paymentReference
+            if (transactionReference) {
+              transaction.intermediator.transaction_reference = transactionReference
             }
 
             if (params.amount.total && params.amount.total !== amount) {
