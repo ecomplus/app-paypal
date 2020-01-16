@@ -60,7 +60,7 @@ module.exports = appSdk => {
                 ['credit_financing_offered'].forEach(paymentProp => {
                   mergePaypalPayment[paymentProp] = paypalPayment[paymentProp]
                 })
-                logger.log(`PayPal Merge Payment ${JSON.stringify(mergePaypalPayment, null, 2)}`)
+                logger.log(`PayPal Payment:\n${paypalPayment}`)
               })
               .catch(e => {
                 // already debugged
