@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.4](https://github.com/ecomclub/app-paypal/compare/v1.5.3...v1.5.4) (2020-01-16)
+
+
+### Bug Fixes
+
+* **checkout-client:** do not execute payment client side (onAuthorize) ([e8bb6ba](https://github.com/ecomclub/app-paypal/commit/e8bb6ba3e63142f052c50bd3f381abd2195ae5f6))
+
 ### [1.5.3](https://github.com/ecomclub/app-paypal/compare/v1.5.2...v1.5.3) (2020-01-16)
 
 ### [1.5.2](https://github.com/ecomclub/app-paypal/compare/v1.5.1...v1.5.2) (2020-01-16)
