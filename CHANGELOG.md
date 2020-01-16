@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/ecomclub/app-paypal/compare/v1.4.0...v1.4.1) (2020-01-16)
+
+
+### Bug Fixes
+
+* **paypal-invoice-number:** fix getting invoice number from pp payment ([9c3b92b](https://github.com/ecomclub/app-paypal/commit/9c3b92b4263ec1ce015469a8ae4faeab357b6a8d))
+
 ## [1.4.0](https://github.com/ecomclub/app-paypal/compare/v1.3.1...v1.4.0) (2020-01-16)
 
 
