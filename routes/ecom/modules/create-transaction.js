@@ -4,6 +4,8 @@
 const logger = require('console-files')
 // get pre-created PayPal order
 const getPaypalOrder = require(process.cwd() + '/lib/paypal-api/get-order')
+// get pre-created PayPal payment
+const getPaypalPayment = require(process.cwd() + '/lib/paypal-api/get-payment')
 // execute PayPal payment request
 const executePaypalPayment = require(process.cwd() + '/lib/paypal-api/execute-payment')
 // SQLite3 database abstracted
@@ -45,16 +47,41 @@ module.exports = appSdk => {
             }
             const paypalPlus = Boolean(params.payment_method && params.payment_method.code === 'credit_card')
 
-            executePaypalPayment(
+            // must get payment before execute to read installments info
+            const mergePaypalPayment = {}
+            getPaypalPayment(
               paypalEnv,
               paypalClientId,
               paypalSecret,
               paypalPaymentId,
-              executePaymentBody,
               paypalPlus
             )
-              .then(paypalPayment => resolve({ paypalOrderId, paypalPayment, paypalInvoiceNumber }))
-              .catch(reject)
+              .then(paypalPayment => {
+                ['credit_financing_offered'].forEach(paymentProp => {
+                  mergePaypalPayment[paymentProp] = paypalPayment[paymentProp]
+                })
+              })
+              .catch(e => {
+                // already debugged
+                // ignore here to execute anyway
+              })
+
+              .finally(() => {
+                executePaypalPayment(
+                  paypalEnv,
+                  paypalClientId,
+                  paypalSecret,
+                  paypalPaymentId,
+                  executePaymentBody,
+                  paypalPlus
+                )
+                  .then(paypalPayment => resolve({
+                    paypalOrderId,
+                    paypalPayment: Object.assign(paypalPayment, mergePaypalPayment),
+                    paypalInvoiceNumber
+                  }))
+                  .catch(reject)
+              })
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
             err.statusCode = 400
@@ -147,6 +174,25 @@ module.exports = appSdk => {
             const transactionReference = paypalOrder.invoice_number || paymentReference
             if (transactionReference) {
               transaction.intermediator.transaction_reference = transactionReference
+            }
+
+            const creditFinancing = paypalOrder.credit_financing_offered
+            if (creditFinancing && creditFinancing.term) {
+              // save selected installments option
+              transaction.installments = {
+                number: creditFinancing.term,
+                tax: false
+              }
+              ;['monthly_payment', 'total_cost'].forEach(creditFinancingProp => {
+                if (creditFinancing[creditFinancingProp]) {
+                  const value = parseFloat(creditFinancing[creditFinancingProp].value)
+                  if (value) {
+                    const installmentsProp = creditFinancingProp === 'total_cost'
+                      ? 'total' : 'value'
+                    transaction.installments[installmentsProp] = value
+                  }
+                }
+              })
             }
 
             if (params.amount.total && params.amount.total !== amount) {
