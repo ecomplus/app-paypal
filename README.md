@@ -1,4 +1,4 @@
-# app-paypal
+# App PayPal
 
 [![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -20,7 +20,7 @@ will store [PayPal App credentials](https://developer.paypal.com/developer/appli
 `data` will store discount, installments and custom PayPal SPB/Plus options.
 
 `data`/`hidden_data` expected object model is defined (JSON Schema) on
-[app `admin_settings`](https://github.com/ecomclub/app-paypal/blob/master/assets/app.json).
+[app `admin_settings`](https://github.com/ecomclub/app-paypal/blob/master/assets/application.json).
 
 It's based on
 [E-Com Plus Express App Boilerplate](https://github.com/ecomclub/express-app-boilerplate),
@@ -99,7 +99,7 @@ for PayPal Plus or checkout.js if used;
 from Modules API docs.
 
 > Full `data`/`hidden_data` object referece on
-[app.json](https://github.com/ecomclub/app-paypal/blob/master/assets/app.json) `admin_settings`.
+[application.json](https://github.com/ecomclub/app-paypal/blob/master/assets/application.json) `admin_settings`.
 
 > [Full `response` object reference](https://apx-mods.e-com.plus/api/v1/list_payments/response_schema.json?store_id=100)
 from Modules API docs.
