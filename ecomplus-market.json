@@ -1,0 +1,8 @@
+{
+  "app": {
+    "title": "PayPal",
+    "short_description": "Pagamento via cartão de crédito com PayPal",
+    "category": "sales",
+    "icon": "https://market.e-com.plus/media/iO5G0J3SMQd6.png"
+  }
+}
