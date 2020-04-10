@@ -1,9 +1,9 @@
 {
-  "app_id": 9004,
+  "app_id": 1250,
   "state": "active",
   "title": "PayPal",
   "slug": "paypal",
-  "version": "2.1.0",
+  "version": "1.5.5",
   "type": "external",
   "authentication": true,
   "auth_callback_uri": "https://paypal.ecomplus.biz/ecom/auth-callback",
