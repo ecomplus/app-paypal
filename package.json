@@ -8,7 +8,8 @@
   "main": "main.js",
   "scripts": {
     "test": "node ./main.js",
-    "release": "standard-version"
+    "release": "standard-version",
+    "publish:market": "node ./scripts/market-publication.js"
   },
   "dependencies": {
     "@paypal/checkout-server-sdk": "1.x",
