@@ -79,6 +79,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 999999999,
+            "title": "Pedido mínimo",
             "description": "Montante mínimo para aplicar o desconto"
           },
           "type": {
@@ -118,7 +119,7 @@
             "maximum": 99999999,
             "default": 5,
             "title": "Parcela mínima",
-            "description": "Valor mínimo da parcela (como configurado na conta PayPal)"
+            "description": "Valor mínimo da parcela conforme configuração na conta PayPal"
           },
           "max_number": {
             "type": "integer",
