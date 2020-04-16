@@ -117,12 +117,14 @@
             "minimum": 1,
             "maximum": 99999999,
             "default": 5,
-            "description": "Valor mínimo da parcela"
+            "title": "Parcela mínima",
+            "description": "Valor mínimo da parcela (como configurado na conta PayPal)"
           },
           "max_number": {
             "type": "integer",
             "minimum": 2,
             "maximum": 999,
+            "title": "Máximo de parcelas",
             "description": "Número máximo de parcelas sem júros (como configurado na conta PayPal)"
           }
         },
