@@ -268,6 +268,11 @@ module.exports = appSdk => {
           // also add payment gateway for PayPal Plus
           addPaymentGateway(true)
         }
+        if (response.payment_gateways.length > 1 && params.lang === 'pt_br') {
+          // prevent two payment methods with same icon for credit card
+          response.payment_gateways[0].icon =
+            'https://www.paypalobjects.com/webstatic/pt_PT/mktg/logo-center/bdg_secured_by_pp_pt.png'
+        }
         // finally send success response
         res.send(response)
       })
