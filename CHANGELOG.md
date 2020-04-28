@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.7](https://github.com/ecomplus/app-paypal/compare/v1.5.6...v1.5.7) (2020-04-28)
+
+
+### Bug Fixes
+
+* **icons:** prevent two payment methods with same icon for credit card ([d37adcd](https://github.com/ecomplus/app-paypal/commit/d37adcd10c8062e3322cba444f131f93ee151095))
+
 ### [1.5.6](https://github.com/ecomplus/app-paypal/compare/v1.5.5...v1.5.6) (2020-04-22)
 
 ### [1.5.5](https://github.com/ecomplus/app-paypal/compare/v1.5.4...v1.5.5) (2020-04-10)
