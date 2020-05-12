@@ -236,7 +236,7 @@ module.exports = appSdk => {
                     throw new Error('Empty databse row ?')
                   }
                   // duplicated order ?
-                  res.status(400).send({
+                  res.status(409).send({
                     error: 'TRANSACTION_CODE_DUPLICATED',
                     message: 'Ignoring PayPal order ID already fulfilled'
                   })
@@ -267,16 +267,15 @@ module.exports = appSdk => {
 
         .catch(err => {
           // return error status code
-          res.status(err.statusCode || 500)
-          const { message } = err
+          res.status(err.httpStatusCode || err.statusCode || 500)
           res.send({
             error: 'CREATE_TRANSACTION_ERR',
-            message
+            message: (err.response && err.response.message) || err.message
           })
         })
     } else {
       // no PayPal credentials
-      res.status(400).send({
+      res.status(409).send({
         error: 'CREATE_TRANSACTION_DISABLED',
         message: 'PayPal Client ID is unset on app hidden data (payment method unavailable)'
       })
