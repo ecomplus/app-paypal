@@ -42,12 +42,27 @@ module.exports = appSdk => {
             // execute payment
             // https://developer.paypal.com
             // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
+            const { total } = params.amount
+            const freight = params.amount.freight || 0
+            const tax = params.amount.tax || 0
+            const subtotal = total - tax - freight
             const executePaymentBody = {
-              payer_id: paypalPayerId
+              payer_id: paypalPayerId,
+              transactions: [{
+                amount: {
+                  total: total.toFixed(2),
+                  currency: params.currency_id || 'BRL',
+                  details: {
+                    subtotal: subtotal.toFixed(2),
+                    tax: tax.toFixed(2),
+                    shipping: freight.toFixed(2)
+                  }
+                }
+              }]
             }
-            const paypalPlus = Boolean(params.payment_method && params.payment_method.code === 'credit_card')
 
             // must get payment before execute to read installments info
+            const paypalPlus = Boolean(params.payment_method && params.payment_method.code === 'credit_card')
             const mergePaypalPayment = {}
             getPaypalPayment(
               paypalEnv,
