@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.11](https://github.com/ecomplus/app-paypal/compare/v1.5.10...v1.5.11) (2020-05-15)
+
+
+### Bug Fixes
+
+* **deps:** replace ecomplus-app-sdk with @ecomplus/application-sdk ([19fb076](https://github.com/ecomplus/app-paypal/commit/19fb076496b7ce173ddb9f511c2aa6791af9ac1e))
+* **execute-payment:** handle retry without details on VALIDATION_ERROR ([3f12d70](https://github.com/ecomplus/app-paypal/commit/3f12d709a91d09cd08721a438a7084600bbb25ba))
+
 ### [1.5.10](https://github.com/ecomplus/app-paypal/compare/v1.5.9...v1.5.10) (2020-05-12)
 
 
