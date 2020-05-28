@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.14](https://github.com/ecomplus/app-paypal/compare/v1.5.13...v1.5.14) (2020-05-28)
+
+
+### Bug Fixes
+
+* **list-payments:** normalizing purchase units value `toFixed(2)` ([6c6c3a5](https://github.com/ecomplus/app-paypal/commit/6c6c3a5b6ab5cb776c9761eec41b1e23b5cd2f85))
+
 ### [1.5.13](https://github.com/ecomplus/app-paypal/compare/v1.5.12...v1.5.13) (2020-05-28)
 
 
