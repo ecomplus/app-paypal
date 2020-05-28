@@ -8,7 +8,7 @@
           intent: 'sale',
           transactions: [{
             amount: {
-              total: amount.total.toString(),
+              total: amount.total.toFixed(2),
               currency: (window.$ecomConfig && window.$ecomConfig.get('currency')) || 'BRL'
             }
           }]

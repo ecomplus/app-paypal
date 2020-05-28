@@ -216,7 +216,7 @@ module.exports = appSdk => {
         if (amount.total) {
           paypalOrder.purchase_units = [{
             amount: {
-              value: amount.total.toString()
+              value: amount.total.toFixed(2)
             }
           }]
         }
