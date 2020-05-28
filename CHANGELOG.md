@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.15](https://github.com/ecomplus/app-paypal/compare/v1.5.14...v1.5.15) (2020-05-28)
+
 ### [1.5.14](https://github.com/ecomplus/app-paypal/compare/v1.5.13...v1.5.14) (2020-05-28)
 
 
