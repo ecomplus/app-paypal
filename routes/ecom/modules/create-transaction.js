@@ -41,7 +41,9 @@ module.exports = appSdk => {
           if (paypalPaymentId && paypalOrderId) {
             // must get payment before execute to read installments info
             const paypalPlus = Boolean(params.payment_method && params.payment_method.code === 'credit_card')
+            let initialPaypalPayment
             const mergePaypalPayment = {}
+
             getPaypalPayment(
               paypalEnv,
               paypalClientId,
@@ -50,7 +52,8 @@ module.exports = appSdk => {
               paypalPlus
             )
               .then(paypalPayment => {
-                ['credit_financing_offered'].forEach(paymentProp => {
+                initialPaypalPayment = paypalPayment
+                ;['credit_financing_offered'].forEach(paymentProp => {
                   mergePaypalPayment[paymentProp] = paypalPayment[paymentProp]
                 })
                 // logger.log(`PayPal Payment:\n${JSON.stringify(paypalPayment, null, 2)}`)
@@ -107,15 +110,21 @@ module.exports = appSdk => {
                         if (!(err.httpStatusCode >= 500)) {
                           // try to hardfix amount one cent
                           const fixedTotal = parseInt(params.amount.total * 100) / 100
-                          if (fixedTotal <= total.toFixed(2)) {
+                          if (fixedTotal < total.toFixed(2)) {
                             total -= 0.006
                           } else {
-                            total += 0.005
+                            total += 0.006
                           }
                         }
                         isRetry = true
                         setTimeout(tryExecute, 300)
                       } else {
+                        if (err.httpStatusCode === 400) {
+                          const error = new Error('PayPal execute with error')
+                          error.initialPaypalPayment = JSON.stringify(initialPaypalPayment, null, 2)
+                          error.executePaymentBody = JSON.stringify(initialPaypalPayment, null, 2)
+                          logger.error(error)
+                        }
                         reject(err)
                       }
                     })
