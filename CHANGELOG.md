@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.13](https://github.com/ecomplus/app-paypal/compare/v1.5.12...v1.5.13) (2020-05-28)
+
+
+### Bug Fixes
+
+* **create-transaction:** retry execute payment with amount one cent fix ([62b8c59](https://github.com/ecomplus/app-paypal/commit/62b8c5937fe32d011991b844f9dd17e26ef73d03))
+
 ### [1.5.12](https://github.com/ecomplus/app-paypal/compare/v1.5.11...v1.5.12) (2020-05-15)
 
 ### [1.5.11](https://github.com/ecomplus/app-paypal/compare/v1.5.10...v1.5.11) (2020-05-15)
