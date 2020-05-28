@@ -39,28 +39,6 @@ module.exports = appSdk => {
             paypalInvoiceNumber
           ] = params.open_payment_id.split('/')
           if (paypalPaymentId && paypalOrderId) {
-            // execute payment
-            // https://developer.paypal.com
-            // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
-            const { total } = params.amount
-            const freight = params.amount.freight || 0
-            const tax = params.amount.tax || 0
-            const subtotal = total - tax - freight
-            const executePaymentBody = {
-              payer_id: paypalPayerId,
-              transactions: [{
-                amount: {
-                  total: total.toFixed(2),
-                  currency: params.currency_id || 'BRL',
-                  details: {
-                    subtotal: subtotal.toFixed(2),
-                    tax: tax.toFixed(2),
-                    shipping: freight.toFixed(2)
-                  }
-                }
-              }]
-            }
-
             // must get payment before execute to read installments info
             const paypalPlus = Boolean(params.payment_method && params.payment_method.code === 'credit_card')
             const mergePaypalPayment = {}
@@ -83,20 +61,66 @@ module.exports = appSdk => {
               })
 
               .finally(() => {
-                executePaypalPayment(
-                  paypalEnv,
-                  paypalClientId,
-                  paypalSecret,
-                  paypalPaymentId,
-                  executePaymentBody,
-                  paypalPlus
-                )
-                  .then(paypalPayment => resolve({
-                    paypalOrderId,
-                    paypalPayment: Object.assign(paypalPayment, mergePaypalPayment),
-                    paypalInvoiceNumber
-                  }))
-                  .catch(reject)
+                // execute payment
+                // https://developer.paypal.com
+                // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
+                let { total } = params.amount
+                const freight = params.amount.freight || 0
+                const tax = params.amount.tax || 0
+
+                let isRetry = false
+                const tryExecute = () => {
+                  const executePaymentBody = {
+                    payer_id: paypalPayerId,
+                    transactions: [{
+                      amount: {
+                        total: total.toFixed(2),
+                        currency: params.currency_id || 'BRL',
+                        details: {
+                          subtotal: (total - tax - freight).toFixed(2),
+                          tax: tax.toFixed(2),
+                          shipping: freight.toFixed(2)
+                        }
+                      }
+                    }]
+                  }
+
+                  executePaypalPayment(
+                    paypalEnv,
+                    paypalClientId,
+                    paypalSecret,
+                    paypalPaymentId,
+                    executePaymentBody,
+                    paypalPlus
+                  )
+                    .then(paypalPayment => resolve({
+                      paypalOrderId,
+                      paypalPayment: Object.assign(paypalPayment, mergePaypalPayment),
+                      paypalInvoiceNumber
+                    }))
+
+                    .catch(err => {
+                      if (
+                        !isRetry &&
+                        (!err.httpStatusCode || err.httpStatusCode === 400 || err.httpStatusCode >= 500)
+                      ) {
+                        if (!(err.httpStatusCode >= 500)) {
+                          // try to hardfix amount one cent
+                          const fixedTotal = parseInt(params.amount.total * 100) / 100
+                          if (fixedTotal <= total.toFixed(2)) {
+                            total -= 0.006
+                          } else {
+                            total += 0.005
+                          }
+                        }
+                        isRetry = true
+                        setTimeout(tryExecute, 300)
+                      } else {
+                        reject(err)
+                      }
+                    })
+                }
+                tryExecute()
               })
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
