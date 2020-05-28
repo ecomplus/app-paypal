@@ -121,8 +121,8 @@ module.exports = appSdk => {
                       } else {
                         if (err.httpStatusCode === 400) {
                           const error = new Error('PayPal execute with error')
-                          error.initialPaypalPayment = JSON.stringify(initialPaypalPayment, null, 2)
-                          error.executePaymentBody = JSON.stringify(initialPaypalPayment, null, 2)
+                          error.initialPaypalPayment = JSON.stringify(initialPaypalPayment)
+                          error.executePaymentBody = JSON.stringify(executePaymentBody)
                           logger.error(error)
                         }
                         reject(err)
