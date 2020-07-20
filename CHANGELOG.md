@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/ecomplus/app-paypal/compare/v1.5.15...v1.6.0) (2020-07-20)
+
+
+### Features
+
+* **admin-settings:** add/handle new 'disable_remembered_cards' option ([ad6b84d](https://github.com/ecomplus/app-paypal/commit/ad6b84da846b7ca7e61554a1720b0a0628220005))
+
 ### [1.5.15](https://github.com/ecomplus/app-paypal/compare/v1.5.14...v1.5.15) (2020-05-28)
 
 ### [1.5.14](https://github.com/ecomplus/app-paypal/compare/v1.5.13...v1.5.14) (2020-05-28)
