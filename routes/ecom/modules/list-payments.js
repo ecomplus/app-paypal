@@ -210,6 +210,9 @@ module.exports = appSdk => {
           // standard card fields is disabled by default due to bugs (BR only ?)
           onloadExpression += 'window._paypalStCardFields=true;'
         }
+        if (config.disable_remembered_cards) {
+          onloadExpression += 'window._paypalDisallowRemembered=true;'
+        }
 
         // add order amount on JS expression
         const paypalOrder = {}

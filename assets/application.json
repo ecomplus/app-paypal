@@ -186,6 +186,14 @@
       },
       "hide": false
     },
+    "disable_remembered_cards": {
+      "schema": {
+        "type": "boolean",
+        "title": "Desabilitar opção \"lembrar cartão\"",
+        "description": "Remove checkbox para salvar e reutilizar cartão de crédito com PayPal Plus"
+      },
+      "hide": false
+    },
     "disable_spb": {
       "schema": {
         "type": "boolean",
