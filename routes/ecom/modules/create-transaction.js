@@ -95,6 +95,8 @@ module.exports = appSdk => {
                     }]
                   }
 
+                  // debug payment execution
+                  logger.log(`Executing ${paypalPaymentId} for #${storeId} with client ID ${paypalClientId}`)
                   executePaypalPayment(
                     paypalEnv,
                     paypalClientId,
