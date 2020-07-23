@@ -71,7 +71,12 @@ module.exports = appSdk => {
                 let total = round(params.amount.total)
                 let subtotal
                 try {
-                  subtotal = initialPaypalPayment.transactions[0].amount.details.subtotal
+                  const { amount } = initialPaypalPayment.transactions[0]
+                  subtotal = Number(amount.details.subtotal)
+                  if (amount.total && round(Math.abs(total - Number(amount.total))) === 0.01) {
+                    // hardfix to keep exact payment total
+                    total = amount.total
+                  }
                 } catch (e) {
                   subtotal = round(params.amount.subtotal)
                 }
