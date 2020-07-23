@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/ecomplus/app-paypal/compare/v1.6.1...v1.6.2) (2020-07-23)
+
+
+### Bug Fixes
+
+* **create-transaction:** fix calculating tax after fixed subtotal ([0a5a301](https://github.com/ecomplus/app-paypal/commit/0a5a301dd7c7ac66e9fd28c527871aecd0cc094d))
+* **create-transaction:** try preserve original paypal payment subtotal ([11433f3](https://github.com/ecomplus/app-paypal/commit/11433f3499d7d9781a2864703150b227defd9ce7))
+* **parse-payment-body:** remove MIN_AMOUNT item (fix duplicated) ([635d8b6](https://github.com/ecomplus/app-paypal/commit/635d8b6109173354f9bc268e8af1a27decdb0dbc))
+
 ### [1.6.1](https://github.com/ecomplus/app-paypal/compare/v1.6.0...v1.6.1) (2020-07-23)
 
 
