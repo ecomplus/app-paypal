@@ -1,7 +1,7 @@
 'use strict'
 
 // log on files
-// const logger = require('console-files')
+const logger = require('console-files')
 // read configured E-Com Plus app data
 const getConfig = require(process.cwd() + '/lib/store-api/get-config')
 // create PayPal experience profile
@@ -89,15 +89,20 @@ module.exports = appSdk => {
             // trigger ignored by app configuration
             res.send(ECHO_SKIP)
           } else {
-            // logger.error(err)
-            // request to Store API with error response
-            // return error status code
-            res.status(500)
-            const { message } = err
-            res.send({
-              error: ECHO_API_ERROR,
-              message
-            })
+            if (err.httpStatusCode !== 401) {
+              // logger.error(err)
+              // request to Store API with error response
+              // return error status code
+              res.status(500)
+              const { message } = err
+              res.send({
+                error: ECHO_API_ERROR,
+                message
+              })
+            } else {
+              logger.log(`Ignoring invalid credentials for store #${storeId}`)
+              res.send(`PayPal SDK message: '${err.message}'`)
+            }
           }
         })
     } else {
