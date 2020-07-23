@@ -75,7 +75,7 @@ module.exports = appSdk => {
                   subtotal = Number(amount.details.subtotal)
                   if (amount.total && round(Math.abs(total - Number(amount.total))) === 0.01) {
                     // hardfix to keep exact payment total
-                    total = amount.total
+                    total = Number(amount.total)
                   }
                 } catch (e) {
                   subtotal = round(params.amount.subtotal)
