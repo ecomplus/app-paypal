@@ -67,9 +67,10 @@ module.exports = appSdk => {
                 // execute payment
                 // https://developer.paypal.com
                 // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
-                let { total } = params.amount
-                const freight = params.amount.freight || 0
-                const tax = params.amount.tax || 0
+                const round = n => n ? Math.round(n * 100) / 100 : 0
+                let total = round(params.amount.total)
+                const freight = round(params.amount.freight)
+                const tax = round(params.amount.tax)
 
                 let isRetry = false
                 const tryExecute = () => {
