@@ -79,6 +79,7 @@ module.exports = appSdk => {
 
                 let isRetry = false
                 const tryExecute = () => {
+                  const fixedSubtotal = subtotal + freight <= total ? subtotal : total - freight
                   const executePaymentBody = {
                     payer_id: paypalPayerId,
                     transactions: [{
@@ -86,9 +87,9 @@ module.exports = appSdk => {
                         total: total.toFixed(2),
                         currency: params.currency_id || 'BRL',
                         details: {
-                          subtotal: (subtotal + freight <= total ? subtotal : total - freight).toFixed(2),
+                          subtotal: fixedSubtotal.toFixed(2),
                           shipping: freight.toFixed(2),
-                          tax: (total - subtotal - freight).toFixed(2)
+                          tax: (total - fixedSubtotal - freight).toFixed(2)
                         }
                       }
                     }]
