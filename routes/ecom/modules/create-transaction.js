@@ -69,8 +69,13 @@ module.exports = appSdk => {
                 // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
                 const round = n => n ? Math.round(n * 100) / 100 : 0
                 let total = round(params.amount.total)
+                let subtotal
+                try {
+                  subtotal = initialPaypalPayment.transactions[0].amount.details.subtotal
+                } catch (e) {
+                  subtotal = round(params.amount.subtotal)
+                }
                 const freight = round(params.amount.freight)
-                const tax = round(params.amount.tax)
 
                 let isRetry = false
                 const tryExecute = () => {
@@ -81,9 +86,9 @@ module.exports = appSdk => {
                         total: total.toFixed(2),
                         currency: params.currency_id || 'BRL',
                         details: {
-                          subtotal: (total - tax - freight).toFixed(2),
-                          tax: tax.toFixed(2),
-                          shipping: freight.toFixed(2)
+                          subtotal: (subtotal + freight <= total ? subtotal : total - freight).toFixed(2),
+                          shipping: freight.toFixed(2),
+                          tax: (total - subtotal - freight).toFixed(2)
                         }
                       }
                     }]
