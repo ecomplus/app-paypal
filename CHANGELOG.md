@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.5](https://github.com/ecomplus/app-paypal/compare/v1.6.4...v1.6.5) (2020-07-23)
+
+
+### Bug Fixes
+
+* **create-transaction:** hardfix to keep exact created payment total ([e8e5a5f](https://github.com/ecomplus/app-paypal/commit/e8e5a5f6887c3c816df99cb3ce54113ac212cd99))
+
 ### [1.6.4](https://github.com/ecomplus/app-paypal/compare/v1.6.3...v1.6.4) (2020-07-23)
 
 
