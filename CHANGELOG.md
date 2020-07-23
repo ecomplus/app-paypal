@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.3](https://github.com/ecomplus/app-paypal/compare/v1.6.2...v1.6.3) (2020-07-23)
+
+
+### Bug Fixes
+
+* **execute-payment:** override client config to ensure params ([c202c4e](https://github.com/ecomplus/app-paypal/commit/c202c4efd3381ebdaa4a28a00a54b24996d0c3d4))
+* **paypal-client:** stop persisting instancese (already done by sdk) ([8d6a1de](https://github.com/ecomplus/app-paypal/commit/8d6a1de89ce5664b85094be03437c7917a07bfea)), closes [/github.com/paypal/PayPal-node-SDK/blob/621d8b448cf4c6ae375e8276b06d76be32191725/lib/api.js#L76](https://github.com/ecomplus//github.com/paypal/PayPal-node-SDK/blob/621d8b448cf4c6ae375e8276b06d76be32191725/lib/api.js/issues/L76)
+
 ### [1.6.2](https://github.com/ecomplus/app-paypal/compare/v1.6.1...v1.6.2) (2020-07-23)
 
 
