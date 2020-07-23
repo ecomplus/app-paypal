@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/ecomplus/app-paypal/compare/v1.6.0...v1.6.1) (2020-07-23)
+
+
+### Bug Fixes
+
+* **paypal-payment:** fix rounding amount values ([ce2d0d5](https://github.com/ecomplus/app-paypal/commit/ce2d0d5b897be721fe11bf949c365569c3a25f37))
+
 ## [1.6.0](https://github.com/ecomplus/app-paypal/compare/v1.5.15...v1.6.0) (2020-07-20)
 
 
