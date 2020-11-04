@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.6](https://github.com/ecomplus/app-paypal/compare/v1.6.5...v1.6.6) (2020-11-04)
+
+
+### Bug Fixes
+
+* **create-transaction:** fix payload with redirect uri ([19fb90c](https://github.com/ecomplus/app-paypal/commit/19fb90c81cf5359cdb95943309d21d4f1688fc3e))
+* **create-transaction:** try redirect payment when PAYER_ACTION_REQUIRED ([60d0d5c](https://github.com/ecomplus/app-paypal/commit/60d0d5cea0b11fb6ef185cebb7d8f0d848c3a80f))
+* **create-transaction:** try to update payment amount before execute ([eeed240](https://github.com/ecomplus/app-paypal/commit/eeed2408314384e64ab31b72df852dcb3e20ec3b))
+
 ### [1.6.5](https://github.com/ecomplus/app-paypal/compare/v1.6.4...v1.6.5) (2020-07-23)
 
 
