@@ -6,6 +6,10 @@ const logger = require('console-files')
 const getPaypalOrder = require(process.cwd() + '/lib/paypal-api/get-order')
 // get pre-created PayPal payment
 const getPaypalPayment = require(process.cwd() + '/lib/paypal-api/get-payment')
+// parse create transaction body to PayPal model
+const parsePaymentBody = require(process.cwd() + '/lib/parse-payment-body')
+// update PayPal payment transaction
+const editPaypalPayment = require(process.cwd() + '/lib/paypal-api/edit-payment')
 // execute PayPal payment request
 const executePaypalPayment = require(process.cwd() + '/lib/paypal-api/execute-payment')
 // SQLite3 database abstracted
@@ -70,24 +74,54 @@ module.exports = appSdk => {
                 const round = n => n ? Math.round(n * 100) / 100 : 0
                 let total = round(params.amount.total)
                 let subtotal
+                let updatingPayment
+
                 try {
                   const { amount } = initialPaypalPayment.transactions[0]
                   subtotal = Number(amount.details.subtotal)
-                  if (amount.total && round(Math.abs(total - Number(amount.total))) === 0.01) {
-                    // hardfix to keep exact payment total
-                    total = Number(amount.total)
+                  if (amount.total) {
+                    const amountDiff = total - Number(amount.total)
+                    if (amountDiff) {
+                      if (round(Math.abs(amountDiff)) <= 0.02) {
+                        // hardfix to keep exact payment total
+                        total = Number(amount.total)
+                      } else {
+                        // try to update payment amount before execute
+                        const createPaymentBody = parsePaymentBody(params)
+                        const editPaymentBody = [{
+                          op: 'replace',
+                          path: '/transactions/0/amount',
+                          value: createPaymentBody.transactions[0].amount
+                        }, {
+                          op: 'replace',
+                          path: '/transactions/0/item_list/items',
+                          value: createPaymentBody.transactions[0].item_list.items
+                        }]
+
+                        updatingPayment = editPaypalPayment(
+                          paypalEnv,
+                          paypalClientId,
+                          paypalSecret,
+                          paypalPaymentId,
+                          editPaymentBody
+                        )
+                      }
+                    }
                   }
                 } catch (e) {
                   subtotal = round(params.amount.subtotal)
                 }
-                const freight = round(params.amount.freight)
 
                 let isRetry = false
-                const tryExecute = () => {
-                  const fixedSubtotal = subtotal + freight <= total ? subtotal : total - freight
+                const tryExecute = isPaymentUpdated => {
                   const executePaymentBody = {
-                    payer_id: paypalPayerId,
-                    transactions: [{
+                    payer_id: paypalPayerId
+                  }
+                  if (isPaymentUpdated !== true) {
+                    // must specify execution amount
+                    const freight = round(params.amount.freight)
+                    const fixedSubtotal = subtotal + freight <= total ? subtotal : total - freight
+                    executePaymentBody.transactions = [{
                       amount: {
                         total: total.toFixed(2),
                         currency: params.currency_id || 'BRL',
@@ -162,7 +196,19 @@ module.exports = appSdk => {
                       }
                     })
                 }
-                tryExecute()
+
+                if (updatingPayment) {
+                  // wait payment edit request
+                  updatingPayment
+                    .then(() => {
+                      tryExecute(true)
+                    })
+                    .catch(() => {
+                      tryExecute()
+                    })
+                } else {
+                  tryExecute()
+                }
               })
           } else {
             const err = new Error('Unknown PayPal Payment/Order IDs')
