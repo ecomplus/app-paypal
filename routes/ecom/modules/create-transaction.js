@@ -133,6 +133,25 @@ module.exports = appSdk => {
                         isRetry = true
                         setTimeout(tryExecute, 300)
                       } else {
+                        if (err.response && err.response.name === 'PAYER_ACTION_REQUIRED') {
+                          // try redirecting user to payment on PayPal checkout
+                          let redirectPaymentUri
+                          if (Array.isArray(initialPaypalPayment.links)) {
+                            const linkObj = initialPaypalPayment.links.find(({ rel }) => rel === 'approval_url')
+                            if (linkObj) {
+                              redirectPaymentUri = linkObj.href
+                            }
+                          }
+                          if (redirectPaymentUri) {
+                            return resolve({
+                              paypalOrderId,
+                              paypalPayment: Object.assign(initialPaypalPayment, mergePaypalPayment),
+                              paypalInvoiceNumber,
+                              redirectPaymentUri
+                            })
+                          }
+                        }
+
                         if (err.httpStatusCode === 400) {
                           const error = new Error('PayPal execute with error')
                           error.initialPaypalPayment = JSON.stringify(initialPaypalPayment)
@@ -155,7 +174,7 @@ module.exports = appSdk => {
         }
       })
 
-        .then(({ paypalOrderId, paypalPayment, paypalInvoiceNumber }) => {
+        .then(({ paypalOrderId, paypalPayment, paypalInvoiceNumber, redirectPaymentUri }) => {
           // debug new order
           logger.log(`New PayPal order ${paypalOrderId} for store #${storeId} /${orderId}`)
 
@@ -163,16 +182,20 @@ module.exports = appSdk => {
             // send request to PayPal API
             // https://developer.paypal.com/docs/api/orders/v2/#orders_get
             return getPaypalOrder(paypalEnv, paypalClientId, paypalSecret, paypalOrderId)
+              .then(paypalOrder => ({ paypalOrder }))
           } else {
             return {
-              invoice_number: paypalInvoiceNumber,
-              ...paypalPayment,
-              reference_id: paypalOrderId
+              paypalOrder: {
+                invoice_number: paypalInvoiceNumber,
+                ...paypalPayment,
+                reference_id: paypalOrderId
+              },
+              redirectPaymentUri
             }
           }
         })
 
-        .then(paypalOrder => {
+        .then(({ paypalOrder, redirectPaymentUri }) => {
           // validate transaction amount
           let amount, transactionCode, paymentLink, paymentReference
 
@@ -194,7 +217,7 @@ module.exports = appSdk => {
             if (Array.isArray(paypalOrder.links)) {
               for (let i = 0; i < paypalOrder.links.length; i++) {
                 const link = paypalOrder.links[i]
-                if (link.rel === 'approve') {
+                if (link.rel === 'approve' || link.rel === 'approval_url') {
                   paymentLink = link.href
                   break
                 }
@@ -228,8 +251,12 @@ module.exports = appSdk => {
                 transaction_code: transactionCode
               },
               status: {
-                current: 'under_analysis'
+                current: redirectPaymentUri ? 'pending' : 'under_analysis'
               }
+            }
+            if (redirectPaymentUri) {
+              transaction.payment_link = redirectPaymentUri
+              transaction.redirect_to_payment = true
             }
             if (paymentLink) {
               transaction.payment_link = paymentLink
