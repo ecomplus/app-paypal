@@ -242,7 +242,7 @@ module.exports = appSdk => {
           }
 
           if (amount && amount >= params.amount.total * 0.975) {
-            // mount response body
+            // mount response transaction
             // https://apx-mods.e-com.plus/api/v1/create_transaction/response_schema.json?store_id=100
             const transaction = {
               amount,
@@ -256,9 +256,9 @@ module.exports = appSdk => {
             }
             if (redirectPaymentUri) {
               transaction.payment_link = redirectPaymentUri
-              transaction.redirect_to_payment = true
-            }
-            if (paymentLink) {
+              transaction.notes = 'ATENÇÃO: Não foi possível efetuar a cobrança, ' +
+                'é necessário finalizar o pagamento diretamente no PayPal'
+            } else if (paymentLink) {
               transaction.payment_link = paymentLink
             }
             const transactionReference = paypalOrder.invoice_number || paymentReference
@@ -302,6 +302,12 @@ module.exports = appSdk => {
               }
             }
 
+            // final create transaction response payload
+            const response = {
+              transaction,
+              redirect_to_payment: Boolean(redirectPaymentUri)
+            }
+
             if (transactionCode) {
               // save to order database if not already saved
               return get(transactionCode)
@@ -322,13 +328,13 @@ module.exports = appSdk => {
                     .then(() => {
                       // all done
                       // send response and finish process
-                      res.send({ transaction })
+                      res.send(response)
                     })
                 })
             } else {
               // send response with additional notes
               transaction.notes = 'ATENTION: Can\'t save PayPal reference to update order status'
-              return res.send({ transaction })
+              return res.send(response)
             }
           }
 
