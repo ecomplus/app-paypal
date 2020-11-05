@@ -119,7 +119,7 @@ module.exports = appSdk => {
                   const executePaymentBody = {
                     payer_id: paypalPayerId
                   }
-                  if (isPaymentUpdated !== true) {
+                  if (isPaymentUpdated !== true && !isPaymentUptodate) {
                     // must specify execution amount
                     const freight = round(params.amount.freight)
                     const fixedSubtotal = subtotal + freight <= total ? subtotal : total - freight
@@ -209,10 +209,10 @@ module.exports = appSdk => {
                       tryExecute(true)
                     })
                     .catch(() => {
-                      tryExecute(isPaymentUptodate)
+                      tryExecute()
                     })
                 } else {
-                  tryExecute(isPaymentUptodate)
+                  tryExecute()
                 }
               })
           } else {
