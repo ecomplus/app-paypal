@@ -188,7 +188,9 @@ module.exports = appSdk => {
                           }
                         }
 
-                        if (err.httpStatusCode === 400) {
+                        if (err.response && err.response.name === 'INSTRUMENT_DECLINED') {
+                          logger.log(`INSTRUMENT_DECLINED ${paypalPaymentId} for #${storeId}`)
+                        } else if (err.httpStatusCode === 400) {
                           const error = new Error('PayPal execute with error')
                           error.initialPaypalPayment = JSON.stringify(initialPaypalPayment)
                           error.executePaymentBody = JSON.stringify(executePaymentBody)
