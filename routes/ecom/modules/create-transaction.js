@@ -192,6 +192,9 @@ module.exports = appSdk => {
                           const error = new Error('PayPal execute with error')
                           error.initialPaypalPayment = JSON.stringify(initialPaypalPayment)
                           error.executePaymentBody = JSON.stringify(executePaymentBody)
+                          error.isPaymentUptodate = Boolean(isPaymentUptodate)
+                          error.amount = JSON.stringify(params.amount)
+                          error.subtotal = subtotal
                           logger.error(error)
                         }
                         reject(err)
