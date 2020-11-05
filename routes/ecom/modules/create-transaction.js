@@ -73,18 +73,17 @@ module.exports = appSdk => {
                 // /docs/integration/paypal-plus/mexico-brazil/test-your-integration-and-execute-the-payment/
                 const round = n => n ? Math.round(n * 100) / 100 : 0
                 let total = round(params.amount.total)
-                let subtotal
-                let updatingPayment
+                let subtotal, updatingPayment, isPaymentUptodate
 
                 try {
                   const { amount } = initialPaypalPayment.transactions[0]
-                  subtotal = Number(amount.details.subtotal)
+                  subtotal = round(Number(amount.details.subtotal))
                   if (amount.total) {
-                    const amountDiff = total - Number(amount.total)
+                    const amountDiff = total - round(Number(amount.total))
                     if (amountDiff) {
                       if (round(Math.abs(amountDiff)) <= 0.02) {
-                        // hardfix to keep exact payment total
-                        total = Number(amount.total)
+                        // ignore round diff
+                        isPaymentUptodate = true
                       } else {
                         // try to update payment amount before execute
                         const createPaymentBody = parsePaymentBody(params)
@@ -106,6 +105,9 @@ module.exports = appSdk => {
                           editPaymentBody
                         )
                       }
+                    } else {
+                      // same amount
+                      isPaymentUptodate = true
                     }
                   }
                 } catch (e) {
@@ -204,10 +206,10 @@ module.exports = appSdk => {
                       tryExecute(true)
                     })
                     .catch(() => {
-                      tryExecute()
+                      tryExecute(isPaymentUptodate)
                     })
                 } else {
-                  tryExecute()
+                  tryExecute(isPaymentUptodate)
                 }
               })
           } else {
