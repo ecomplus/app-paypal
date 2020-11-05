@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.10](https://github.com/ecomplus/app-paypal/compare/v1.6.9...v1.6.10) (2020-11-05)
+
+
+### Bug Fixes
+
+* **create-transaction:** fix debugs for execution instrument declined ([e5e4ad7](https://github.com/ecomplus/app-paypal/commit/e5e4ad7e2afa6f147d9b807ddd83908665da96c4))
+
 ### [1.6.9](https://github.com/ecomplus/app-paypal/compare/v1.6.8...v1.6.9) (2020-11-05)
 
 
