@@ -35,7 +35,7 @@ module.exports = appSdk => {
       const orderId = params.order_id
 
       new Promise((resolve, reject) => {
-        const paypalPayerId = params.intermediator_buyer_id
+        let paypalPayerId = params.intermediator_buyer_id
         if (paypalPayerId) {
           const [
             paypalPaymentId,
@@ -158,49 +158,61 @@ module.exports = appSdk => {
                         (!err.httpStatusCode || err.httpStatusCode === 400 || err.httpStatusCode >= 500)
                       ) {
                         if (!(err.httpStatusCode >= 500)) {
-                          // try to hardfix amount one cent
-                          const fixedTotal = parseInt(params.amount.total * 100) / 100
-                          if (fixedTotal < total.toFixed(2)) {
-                            total -= 0.006
+                          let initialPayerId
+                          if (err.response && err.response.name === 'INVALID_PAYER_ID') {
+                            // check payer ID from original payment
+                            const paypalPayer = initialPaypalPayment.payer || mergePaypalPayment.payer
+                            if (paypalPayer) {
+                              initialPayerId = paypalPayer.payer_info && paypalPayer.payer_info.payer_id
+                            }
+                          }
+                          if (initialPayerId && initialPayerId !== paypalPayerId) {
+                            paypalPayerId = initialPayerId
                           } else {
-                            total += 0.006
+                            // try to hardfix amount one cent
+                            const fixedTotal = parseInt(params.amount.total * 100) / 100
+                            if (fixedTotal < total.toFixed(2)) {
+                              total -= 0.006
+                            } else {
+                              total += 0.006
+                            }
                           }
                         }
                         isRetry = true
-                        setTimeout(tryExecute, 300)
-                      } else {
-                        if (err.response && err.response.name === 'PAYER_ACTION_REQUIRED') {
-                          // try redirecting user to payment on PayPal checkout
-                          let redirectPaymentUri
-                          if (Array.isArray(initialPaypalPayment.links)) {
-                            const linkObj = initialPaypalPayment.links.find(({ rel }) => rel === 'approval_url')
-                            if (linkObj) {
-                              redirectPaymentUri = linkObj.href
-                            }
-                          }
-                          if (redirectPaymentUri) {
-                            return resolve({
-                              paypalOrderId,
-                              paypalPayment: Object.assign(initialPaypalPayment, mergePaypalPayment),
-                              paypalInvoiceNumber,
-                              redirectPaymentUri
-                            })
-                          }
-                        }
-
-                        if (err.response && err.response.name === 'INSTRUMENT_DECLINED') {
-                          logger.log(`INSTRUMENT_DECLINED ${paypalPaymentId} for #${storeId}`)
-                        } else if (err.httpStatusCode === 400) {
-                          const error = new Error('PayPal execute with error')
-                          error.initialPaypalPayment = JSON.stringify(initialPaypalPayment)
-                          error.executePaymentBody = JSON.stringify(executePaymentBody)
-                          error.isPaymentUptodate = Boolean(isPaymentUptodate)
-                          error.amount = JSON.stringify(params.amount)
-                          error.subtotal = subtotal
-                          logger.error(error)
-                        }
-                        reject(err)
+                        return setTimeout(tryExecute, 300)
                       }
+
+                      if (err.response && err.response.name === 'PAYER_ACTION_REQUIRED') {
+                        // try redirecting user to payment on PayPal checkout
+                        let redirectPaymentUri
+                        if (Array.isArray(initialPaypalPayment.links)) {
+                          const linkObj = initialPaypalPayment.links.find(({ rel }) => rel === 'approval_url')
+                          if (linkObj) {
+                            redirectPaymentUri = linkObj.href
+                          }
+                        }
+                        if (redirectPaymentUri) {
+                          return resolve({
+                            paypalOrderId,
+                            paypalPayment: Object.assign(initialPaypalPayment, mergePaypalPayment),
+                            paypalInvoiceNumber,
+                            redirectPaymentUri
+                          })
+                        }
+                      }
+
+                      if (err.response && err.response.name === 'INSTRUMENT_DECLINED') {
+                        logger.log(`INSTRUMENT_DECLINED ${paypalPaymentId} for #${storeId}`)
+                      } else if (err.httpStatusCode === 400) {
+                        const error = new Error('PayPal execute with error')
+                        error.initialPaypalPayment = JSON.stringify(initialPaypalPayment)
+                        error.executePaymentBody = JSON.stringify(executePaymentBody)
+                        error.isPaymentUptodate = Boolean(isPaymentUptodate)
+                        error.amount = JSON.stringify(params.amount)
+                        error.subtotal = subtotal
+                        logger.error(error)
+                      }
+                      reject(err)
                     })
                 }
 
