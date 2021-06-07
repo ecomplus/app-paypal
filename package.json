@@ -12,17 +12,17 @@
     "publish:market": "node ./scripts/market-publication.js"
   },
   "dependencies": {
-    "@ecomplus/application-sdk": "^2.0.0-sqlite.1.12.3",
+    "@ecomplus/application-sdk": "^11.0.0-sqlite.1.14.11",
     "@paypal/checkout-server-sdk": "1.x",
     "console-files": "2.x",
     "express": "4.x",
     "paypal-rest-sdk": "1.x",
-    "uglify-js": "^3.9.3"
+    "uglify-js": "^3.13.9"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "husky": "^3.0.8",
     "standard": "^14.3.4",
     "standard-version": "^8.0.2"
