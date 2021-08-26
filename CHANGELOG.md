@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.12](https://github.com/ecomplus/app-paypal/compare/v1.6.11...v1.6.12) (2021-08-26)
+
+
+### Bug Fixes
+
+* **list-payments:** fix setting up `gateway.installment_options` [[#26](https://github.com/ecomplus/app-paypal/issues/26)] ([c0f76e5](https://github.com/ecomplus/app-paypal/commit/c0f76e519e18ea6b0429a404166ab055d1828eef))
+
 ### [1.6.11](https://github.com/ecomplus/app-paypal/compare/v1.6.10...v1.6.11) (2021-06-07)
 
 
