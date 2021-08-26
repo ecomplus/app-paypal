@@ -139,7 +139,7 @@ module.exports = appSdk => {
           // map to payment gateway installments
           paymentGateway.installment_options = []
           const minInstallment = installmentsOption.min_installment || 5
-          for (let number = 2; number <= installmentsOption.max_number.length; number++) {
+          for (let number = 2; number <= installmentsOption.max_number; number++) {
             // check installment value and configured minimum
             const value = amount.total / number
             if (value >= minInstallment) {
