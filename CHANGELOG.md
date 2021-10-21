@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.13](https://github.com/ecomplus/app-paypal/compare/v1.6.12...v1.6.13) (2021-10-21)
+
+
+### Bug Fixes
+
+* **deps:** update @ecomplus/application-sdk to v1.15.5 sqlite ([41222af](https://github.com/ecomplus/app-paypal/commit/41222af097b83f178cb904eec2fd19dbb3d73e17))
+
 ### [1.6.12](https://github.com/ecomplus/app-paypal/compare/v1.6.11...v1.6.12) (2021-08-26)
 
 
