@@ -12,7 +12,7 @@
     "publish:market": "node ./scripts/market-publication.js"
   },
   "dependencies": {
-    "@ecomplus/application-sdk": "^11.0.0-sqlite.1.14.11",
+    "@ecomplus/application-sdk": "^11.0.0-sqlite.1.15.5",
     "@paypal/checkout-server-sdk": "1.x",
     "console-files": "2.x",
     "express": "4.x",
