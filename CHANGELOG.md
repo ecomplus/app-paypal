@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.14](https://github.com/ecomplus/app-paypal/compare/v1.6.13...v1.6.14) (2021-11-12)
+
+
+### Bug Fixes
+
+* **deps:** remove no more used `paypal-rest-sdk` (deprecated) ([2448d38](https://github.com/ecomplus/app-paypal/commit/2448d383f192a6494afc7b3b31f43374496c6536))
+* **paypal-client:** refactor paypal sdk to fix `default_options` object side effects ([1ba68b9](https://github.com/ecomplus/app-paypal/commit/1ba68b9c08dc5ba9b5d6703160c2f1b74534abb2))
+
 ### [1.6.13](https://github.com/ecomplus/app-paypal/compare/v1.6.12...v1.6.13) (2021-10-21)
 
 
