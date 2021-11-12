@@ -16,16 +16,15 @@
     "@paypal/checkout-server-sdk": "1.x",
     "console-files": "2.x",
     "express": "4.x",
-    "paypal-rest-sdk": "1.x",
     "uglify-js": "^3.13.9"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
     "dotenv": "^8.6.0",
     "husky": "^4.3.8",
-    "standard": "^16.0.3",
-    "standard-version": "^9.3.1"
+    "standard": "^16.0.4",
+    "standard-version": "^9.3.2"
   },
   "husky": {
     "hooks": {
