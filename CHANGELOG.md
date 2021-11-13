@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.15](https://github.com/ecomplus/app-paypal/compare/v1.6.14...v1.6.15) (2021-11-13)
+
+
+### Bug Fixes
+
+* **paypal-client:** fix creating client instance ([abe9166](https://github.com/ecomplus/app-paypal/commit/abe91660292fdd4f2db3117515764c575b842266))
+
 ### [1.6.14](https://github.com/ecomplus/app-paypal/compare/v1.6.13...v1.6.14) (2021-11-12)
 
 
