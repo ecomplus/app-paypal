@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.16](https://github.com/ecomplus/app-paypal/compare/v1.6.15...v1.6.16) (2022-01-17)
+
+
+### Bug Fixes
+
+* **list-orders:** must specify fields to return with transactions info ([a156ca9](https://github.com/ecomplus/app-paypal/commit/a156ca96674108c7d4e52ce1c5d1729ffcda30e9))
+* **update-payment-status:** specify transaction id on payments history entry on paypal status change ([ac593a7](https://github.com/ecomplus/app-paypal/commit/ac593a766e5d4d41fbbf7348f596e700b1fa572e))
+
 ### [1.6.15](https://github.com/ecomplus/app-paypal/compare/v1.6.14...v1.6.15) (2021-11-13)
 
 
