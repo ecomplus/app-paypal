@@ -13,7 +13,7 @@ const listOrdersByTransaction = require(process.cwd() + '/lib/store-api/list-ord
 // validate and read PayPal webhook event
 const verifyWebhook = require(process.cwd() + '/lib/paypal-api/verify-webhook')
 // get intermediator object from payment gateway object
-const { intermediator } = require(process.cwd() + '/lib/new-payment-gateway')()
+const intermediatorCode = require(process.cwd() + '/lib/new-payment-gateway')().intermediator.code
 
 const CLIENT_ERR = 'invalidClient'
 
@@ -106,14 +106,31 @@ module.exports = appSdk => {
         }
 
         // list order IDs for respective transaction code
-        return listOrdersByTransaction(sdkClient, transactionCode, intermediator.code)
+        return listOrdersByTransaction(sdkClient, transactionCode)
           .then(orders => {
             // change transaction status on E-Com Plus API
             const notificationCode = body.id
             const flags = paypalEventType.split('.')
             const promises = []
             orders.forEach(order => {
-              promises.push(updatePaymentStatus(sdkClient, order._id, status, notificationCode, flags))
+              let transactionId
+              const { transactions } = order
+              if (Array.isArray(transactions)) {
+                for (let i = 0; i < transactions.length; i++) {
+                  const transaction = transactions[i]
+                  const { app, intermediator } = transaction
+                  if (intermediator && intermediator.transaction_code === String(transactionCode)) {
+                    if (app && app.intermediator && app.intermediator.code !== intermediatorCode) {
+                      return
+                    }
+                    transactionId = transaction._id
+                    break
+                  }
+                }
+              }
+              if (transactionId) {
+                promises.push(updatePaymentStatus(sdkClient, order._id, status, notificationCode, flags, transactionId))
+              }
             })
             return Promise.all(promises)
           })
