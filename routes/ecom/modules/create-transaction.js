@@ -377,7 +377,7 @@ module.exports = appSdk => {
               // save to order database if not already saved
               return get(transactionCode)
                 .then(data => {
-                  if (!data) {
+                  if (!data || data.orderId === orderId) {
                     throw new Error('Empty databse row ?')
                   }
                   // duplicated order ?
