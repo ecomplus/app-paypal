@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.17](https://github.com/ecomplus/app-paypal/compare/v1.6.16...v1.6.17) (2022-06-13)
+
+
+### Bug Fixes
+
+* **create-transaction:** also check order id for transaction code duplicated ev ([0717275](https://github.com/ecomplus/app-paypal/commit/07172759334d07e4d8c8e8852a79510cc3ee35cb))
+
 ### [1.6.16](https://github.com/ecomplus/app-paypal/compare/v1.6.15...v1.6.16) (2022-01-17)
 
 
