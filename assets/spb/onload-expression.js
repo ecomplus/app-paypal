@@ -13,7 +13,7 @@
           purchase_units: [{
             amount: {
               value: amount.total.toString(),
-              currency_code: 'BRL'
+              currency_code: (window.$ecomConfig && window.$ecomConfig.get('currency')) || 'BRL'
             }
           }]
         }
