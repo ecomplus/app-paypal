@@ -167,7 +167,7 @@ module.exports = appSdk => {
           // https://developer.paypal.com/docs/checkout/integrate/
           paypalScript = 'https://www.paypal.com/sdk/js' +
             `?client-id=${paypalClientId}` +
-            `&currency=${params.currency_id}` +
+            `&currency=${(window.$ecomConfig && window.$ecomConfig.get('currency')) || params.currency_id}` +
             `&locale=${paypalLocale}`
           if (!config.enable_standard_card_fiels) {
             paypalScript += '&disable-funding=card'
