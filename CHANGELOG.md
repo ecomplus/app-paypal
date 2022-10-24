@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.19](https://github.com/ecomplus/app-paypal/compare/v1.6.18...v1.6.19) (2022-10-24)
+
+
+### Bug Fixes
+
+* **list-payments:** remove ecom config ([f79893b](https://github.com/ecomplus/app-paypal/commit/f79893becfa07c508dca8b9a4331de15c2e88bbb))
+
 ### [1.6.18](https://github.com/ecomplus/app-paypal/compare/v1.6.17...v1.6.18) (2022-10-24)
 
 
