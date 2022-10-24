@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.18](https://github.com/ecomplus/app-paypal/compare/v1.6.17...v1.6.18) (2022-10-24)
+
+
+### Bug Fixes
+
+* **onload-expression:** get current currency instead of only brl ([df61da0](https://github.com/ecomplus/app-paypal/commit/df61da0c462df0d13fc03bf14cf533e0c9a28221))
+
 ### [1.6.17](https://github.com/ecomplus/app-paypal/compare/v1.6.16...v1.6.17) (2022-06-13)
 
 
