@@ -24,7 +24,7 @@ module.exports = appSdk => {
     // https://developer.paypal.com/docs/integration/direct/webhooks/notification-messages/
     const transactionCode = body && body.resource &&
       (body.resource.sale_id || body.resource.id)
-    // logger.log(`PayPal webhook ${body.id}: ${transactionCode}`)
+    logger.log(`PayPal webhook ${body.id}: ${transactionCode} - ${body.resource && body.resource.parent_payment} - ${body.event_type}`)
     if (!transactionCode) {
       return res.sendStatus(400)
     }
