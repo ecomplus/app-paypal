@@ -262,7 +262,8 @@ module.exports = appSdk => {
 
         .then(({ paypalOrder, redirectPaymentUri }) => {
           // validate transaction amount
-          let amount, transactionCode, paymentLink, paymentReference, saleStatus
+          let amount, transactionCode, paymentLink, paymentReference
+          let saleStatus = 'under_analysis'
 
           if (Array.isArray(paypalOrder.purchase_units) && paypalOrder.purchase_units.length) {
             // PayPal Checkout v2
@@ -300,10 +301,7 @@ module.exports = appSdk => {
                 paypalTransaction.related_resources[0] &&
                 paypalTransaction.related_resources[0].sale
 
-              saleStatus = paypalSale && (paypalSale.state === 'completed')
-                ? 'paid'
-                : 'under_analysis'
-
+              saleStatus = paypalSale && (paypalSale.state === 'completed') ? 'paid' : 'under_analysis'
               paymentReference = paypalOrder.reference_id
               transactionCode = paypalSale ? paypalSale.id : paymentReference
               amount = paypalTransaction.amount && parseFloat(paypalTransaction.amount.total)
@@ -320,7 +318,7 @@ module.exports = appSdk => {
                 transaction_code: transactionCode
               },
               status: {
-                current: redirectPaymentUri ? 'pending' : (saleStatus || 'under_analysis')
+                current: redirectPaymentUri ? 'pending' : 
               }
             }
             if (redirectPaymentUri) {
