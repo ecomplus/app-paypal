@@ -318,7 +318,7 @@ module.exports = appSdk => {
                 transaction_code: transactionCode
               },
               status: {
-                current: redirectPaymentUri ? 'pending' : 
+                current: redirectPaymentUri ? 'pending' : saleStatus
               }
             }
             if (redirectPaymentUri) {
