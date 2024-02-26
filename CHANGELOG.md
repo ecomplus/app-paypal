@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.23](https://github.com/ecomplus/app-paypal/compare/v1.6.22...v1.6.23) (2024-02-26)
+
+
+### Bug Fixes
+
+* **create-transaction:** set default sale status with under analisys ([075a18b](https://github.com/ecomplus/app-paypal/commit/075a18bd785e071c2bf9ac24108b091087822e8e))
+
 ### [1.6.22](https://github.com/ecomplus/app-paypal/compare/v1.6.21...v1.6.22) (2024-02-26)
 
 ### [1.6.21](https://github.com/ecomplus/app-paypal/compare/v1.6.20...v1.6.21) (2024-02-26)
